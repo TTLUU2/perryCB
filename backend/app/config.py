@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379"
     cors_origins: str = "http://localhost:5173,https://www.pointhacks.com.au"
     llm_model: str = "claude-sonnet-4-5-20250929"
-    llm_timeout: int = 10
+    llm_timeout: int = 30
     llm_max_retries: int = 3
     session_ttl: int = 1800
     log_level: str = "INFO"
