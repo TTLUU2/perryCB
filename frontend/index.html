@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Point Hacks — Australia's #1 Frequent Flyer Points Resource</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ph-red: #dc2626;
+      --ph-red-dark: #b91c1c;
+      --ph-blue: #1a56db;
+      --ph-blue-light: #eff6ff;
+      --ph-navy: #0f172a;
+      --ph-gray-50: #f8fafc;
+      --ph-gray-100: #f1f5f9;
+      --ph-gray-200: #e2e8f0;
+      --ph-gray-400: #94a3b8;
+      --ph-gray-600: #475569;
+      --ph-gray-800: #1e293b;
+      --ph-gold: #f59e0b;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--ph-gray-50);
+      color: var(--ph-gray-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .ph-nav {
+      background: white;
+      border-bottom: 1px solid var(--ph-gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .ph-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .ph-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ph-navy);
+    }
+    .ph-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--ph-red);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .ph-logo-text {
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+    }
+    .ph-logo-text span { color: var(--ph-red); }
+    .ph-nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .ph-nav-links a {
+      text-decoration: none;
+      color: var(--ph-gray-600);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .ph-nav-links a:hover { color: var(--ph-navy); }
+
+    /* ── HERO ── */
+    .ph-hero {
+      background: linear-gradient(135deg, var(--ph-navy) 0%, #1e3a5f 50%, #1a56db 100%);
+      padding: 80px 24px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ph-hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(26, 86, 219, 0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ph-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ph-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .ph-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .ph-hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      animation: ph-pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes ph-pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .ph-hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .ph-hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--ph-gold), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ph-hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .ph-hero-ctas {
+      display: flex;
+      gap: 12px;
+    }
+    .ph-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .ph-btn-primary {
+      background: var(--ph-red);
+      color: white;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+    }
+    .ph-btn-primary:hover {
+      background: var(--ph-red-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+    .ph-btn-outline {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .ph-btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.35);
+    }
+    .ph-hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .ph-stat-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .ph-stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -1px;
+      margin-bottom: 4px;
+    }
+    .ph-stat-value.gold { color: var(--ph-gold); }
+    .ph-stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+    }
+
+    /* ── SECTION COMMON ── */
+    .ph-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .ph-section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .ph-section-tag {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ph-red);
+      margin-bottom: 8px;
+    }
+    .ph-section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ph-navy);
+      letter-spacing: -0.5px;
+    }
+    .ph-section-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ph-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .ph-section-link:hover { text-decoration: underline; }
+
+    /* ── FEATURED CARDS ── */
+    .ph-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .ph-card {
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--ph-gray-200);
+      overflow: hidden;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .ph-card:hover {
+      border-color: var(--ph-blue);
+      box-shadow: 0 8px 30px rgba(26, 86, 219, 0.1);
+      transform: translateY(-4px);
+    }
+    .ph-card-header {
+      padding: 24px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ph-card-issuer {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: white;
+      flex-shrink: 0;
+    }
+    .ph-card-issuer.amex { background: #006fcf; }
+    .ph-card-issuer.nab { background: #c8102e; }
+    .ph-card-issuer.westpac { background: #d5002b; }
+    .ph-card-issuer.cba { background: #ffcc00; color: #1a1a1a; }
+    .ph-card-issuer.citi { background: #003b70; }
+    .ph-card-issuer.hsbc { background: #db0011; }
+    .ph-card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ph-navy);
+      line-height: 1.3;
+    }
+    .ph-card-program {
+      font-size: 12px;
+      color: var(--ph-gray-400);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .ph-card-body { padding: 0 24px 20px; flex: 1; }
+    .ph-card-bonus {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .ph-card-bonus-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ph-navy);
+      letter-spacing: -1px;
+    }
+    .ph-card-bonus-label {
+      font-size: 13px;
+      color: var(--ph-gray-400);
+      font-weight: 500;
+    }
+    .ph-card-details {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--ph-gray-600);
+    }
+    .ph-card-detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .ph-card-detail-label {
+      font-size: 11px;
+      color: var(--ph-gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .ph-card-detail-value { font-weight: 600; }
+    .ph-card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--ph-gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ph-card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .ph-card-tag.hot { background: #fef2f2; color: var(--ph-red); }
+    .ph-card-tag.popular { background: var(--ph-blue-light); color: var(--ph-blue); }
+    .ph-card-tag.value { background: #f0fdf4; color: #16a34a; }
+    .ph-card-review-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ph-blue);
+      text-decoration: none;
+    }
+    .ph-card-review-link:hover { text-decoration: underline; }
+
+    /* ── TOOLS STRIP ── */
+    .ph-tools-section {
+      background: white;
+      border-top: 1px solid var(--ph-gray-200);
+      border-bottom: 1px solid var(--ph-gray-200);
+    }
+    .ph-tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .ph-tool {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid var(--ph-gray-200);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+      background: var(--ph-gray-50);
+    }
+    .ph-tool:hover {
+      border-color: var(--ph-blue);
+      background: var(--ph-blue-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(26, 86, 219, 0.08);
+    }
+    .ph-tool-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .ph-tool-icon.blue { background: var(--ph-blue-light); }
+    .ph-tool-icon.red { background: #fef2f2; }
+    .ph-tool-icon.amber { background: #fffbeb; }
+    .ph-tool-icon.green { background: #f0fdf4; }
+    .ph-tool-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ph-navy);
+    }
+    .ph-tool-desc {
+      font-size: 12px;
+      color: var(--ph-gray-400);
+      margin-top: 2px;
+    }
+
+    /* ── LATEST ARTICLES ── */
+    .ph-articles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .ph-article {
+      display: flex;
+      gap: 20px;
+      padding: 24px;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--ph-gray-200);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+    .ph-article:hover {
+      border-color: var(--ph-gray-400);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .ph-article-thumb {
+      width: 100px;
+      height: 80px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .ph-article-body { flex: 1; }
+    .ph-article-cat {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ph-red);
+      margin-bottom: 6px;
+    }
+    .ph-article-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ph-navy);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+    .ph-article-meta {
+      font-size: 12px;
+      color: var(--ph-gray-400);
+    }
+
+    /* ── PERRY CTA BANNER ── */
+    .ph-perry-banner {
+      background: linear-gradient(135deg, #1e3a5f 0%, var(--ph-blue) 100%);
+      border-radius: 20px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ph-perry-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ph-perry-banner-text { position: relative; z-index: 1; }
+    .ph-perry-banner h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .ph-perry-banner p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      max-width: 440px;
+      line-height: 1.6;
+    }
+    .ph-perry-banner-visual {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .ph-perry-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    /* ── FOOTER ── */
+    .ph-footer {
+      background: var(--ph-navy);
+      padding: 60px 24px 32px;
+      margin-top: 0;
+    }
+    .ph-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .ph-footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .ph-footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 300px;
+    }
+    .ph-footer-col-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .ph-footer-col a {
+      display: block;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 4px 0;
+      transition: color 0.15s;
+    }
+    .ph-footer-col a:hover { color: white; }
+    .ph-footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ph-footer-copy {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+    }
+    .ph-footer-disclaimer {
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .ph-hero-inner { grid-template-columns: 1fr; }
+      .ph-hero-stats { display: none; }
+      .ph-hero h1 { font-size: 36px; }
+      .ph-cards-grid { grid-template-columns: 1fr 1fr; }
+      .ph-tools-grid { grid-template-columns: 1fr 1fr; }
+      .ph-footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .ph-hero { padding: 48px 24px 64px; }
+      .ph-hero h1 { font-size: 28px; }
+      .ph-hero-sub { font-size: 15px; }
+      .ph-hero-ctas { flex-direction: column; }
+      .ph-cards-grid { grid-template-columns: 1fr; }
+      .ph-tools-grid { grid-template-columns: 1fr; }
+      .ph-articles-grid { grid-template-columns: 1fr; }
+      .ph-nav-links { display: none; }
+      .ph-section { padding: 48px 16px; }
+      .ph-perry-banner { flex-direction: column; text-align: center; padding: 32px 24px; }
+      .ph-perry-banner p { max-width: 100%; }
+      .ph-footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="ph-nav">
+    <div class="ph-nav-inner">
+      <a href="#" class="ph-logo">
+        <div class="ph-logo-icon">PH</div>
+        <div class="ph-logo-text">Point<span>Hacks</span></div>
+      </a>
+      <ul class="ph-nav-links">
+        <li><a href="#">Credit Cards</a></li>
+        <li><a href="#">Seat Alerts</a></li>
+        <li><a href="#">Guides</a></li>
+        <li><a href="#">Reviews</a></li>
+        <li><a href="#">Tools</a></li>
+        <li><a href="#">Community</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="ph-hero">
+    <div class="ph-hero-inner">
+      <div>
+        <div class="ph-hero-badge">
+          <span class="ph-hero-badge-dot"></span>
+          Updated March 2026
+        </div>
+        <h1>Fly further.<br>Pay <em>smarter</em>.</h1>
+        <p class="ph-hero-sub">
+          Australia's #1 resource for frequent flyer points. Compare credit cards,
+          find reward seats, and turn everyday spending into your next trip.
+        </p>
+        <div class="ph-hero-ctas">
+          <a href="#" class="ph-btn ph-btn-primary">Find Your Card &rarr;</a>
+          <a href="#" class="ph-btn ph-btn-outline">How Points Work</a>
+        </div>
+      </div>
+      <div class="ph-hero-stats">
+        <div class="ph-stat-card">
+          <div class="ph-stat-value">24</div>
+          <div class="ph-stat-label">Credit cards compared</div>
+        </div>
+        <div class="ph-stat-card">
+          <div class="ph-stat-value gold">350k</div>
+          <div class="ph-stat-label">Highest bonus available</div>
+        </div>
+        <div class="ph-stat-card">
+          <div class="ph-stat-value">5</div>
+          <div class="ph-stat-label">Loyalty programs covered</div>
+        </div>
+        <div class="ph-stat-card">
+          <div class="ph-stat-value gold">$0</div>
+          <div class="ph-stat-label">Cards with no first-year fee</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CARDS -->
+  <section class="ph-section">
+    <div class="ph-section-header">
+      <div>
+        <div class="ph-section-tag">Featured Deals</div>
+        <h2 class="ph-section-title">Top Credit Card Offers</h2>
+      </div>
+      <a href="#" class="ph-section-link">Compare all 24 cards &rarr;</a>
+    </div>
+    <div class="ph-cards-grid">
+      <!-- Card 1 -->
+      <a href="#" class="ph-card">
+        <div class="ph-card-header">
+          <div class="ph-card-issuer amex">Amex</div>
+          <div>
+            <div class="ph-card-name">Amex Platinum Business</div>
+            <div class="ph-card-program">Membership Rewards</div>
+          </div>
+        </div>
+        <div class="ph-card-body">
+          <div class="ph-card-bonus">
+            <span class="ph-card-bonus-value">350,000</span>
+            <span class="ph-card-bonus-label">bonus MR points</span>
+          </div>
+          <div class="ph-card-details">
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Annual fee</span>
+              <span class="ph-card-detail-value">$1,750</span>
+            </div>
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Min spend</span>
+              <span class="ph-card-detail-value">$12,000 / 3mo</span>
+            </div>
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Earn rate</span>
+              <span class="ph-card-detail-value">2.25 pts/$1</span>
+            </div>
+          </div>
+        </div>
+        <div class="ph-card-footer">
+          <span class="ph-card-tag hot">&#9679; Highest Bonus</span>
+          <span class="ph-card-review-link">Read review &rarr;</span>
+        </div>
+      </a>
+      <!-- Card 2 -->
+      <a href="#" class="ph-card">
+        <div class="ph-card-header">
+          <div class="ph-card-issuer amex">Amex</div>
+          <div>
+            <div class="ph-card-name">Amex Velocity Business</div>
+            <div class="ph-card-program">Velocity Frequent Flyer</div>
+          </div>
+        </div>
+        <div class="ph-card-body">
+          <div class="ph-card-bonus">
+            <span class="ph-card-bonus-value">200,000</span>
+            <span class="ph-card-bonus-label">bonus Velocity pts</span>
+          </div>
+          <div class="ph-card-details">
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Annual fee</span>
+              <span class="ph-card-detail-value">$249</span>
+            </div>
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Min spend</span>
+              <span class="ph-card-detail-value">$6,000 / 3mo</span>
+            </div>
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Earn rate</span>
+              <span class="ph-card-detail-value">1.0 pts/$1</span>
+            </div>
+          </div>
+        </div>
+        <div class="ph-card-footer">
+          <span class="ph-card-tag popular">&#9679; Best Value</span>
+          <span class="ph-card-review-link">Read review &rarr;</span>
+        </div>
+      </a>
+      <!-- Card 3 -->
+      <a href="#" class="ph-card">
+        <div class="ph-card-header">
+          <div class="ph-card-issuer nab">NAB</div>
+          <div>
+            <div class="ph-card-name">NAB Qantas Rewards Signature</div>
+            <div class="ph-card-program">Qantas Frequent Flyer</div>
+          </div>
+        </div>
+        <div class="ph-card-body">
+          <div class="ph-card-bonus">
+            <span class="ph-card-bonus-value">130,000</span>
+            <span class="ph-card-bonus-label">bonus Qantas pts</span>
+          </div>
+          <div class="ph-card-details">
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Annual fee</span>
+              <span class="ph-card-detail-value">$420</span>
+            </div>
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Min spend</span>
+              <span class="ph-card-detail-value">$5,000 / 3mo</span>
+            </div>
+            <div class="ph-card-detail-item">
+              <span class="ph-card-detail-label">Earn rate</span>
+              <span class="ph-card-detail-value">1.0 pts/$1</span>
+            </div>
+          </div>
+        </div>
+        <div class="ph-card-footer">
+          <span class="ph-card-tag popular">&#9679; Popular</span>
+          <span class="ph-card-review-link">Read review &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="ph-tools-section">
+    <div class="ph-section" style="padding-top: 48px; padding-bottom: 48px;">
+      <div class="ph-section-header" style="margin-bottom: 24px;">
+        <div>
+          <div class="ph-section-tag">Quick Access</div>
+          <h2 class="ph-section-title">Tools & Calculators</h2>
+        </div>
+      </div>
+      <div class="ph-tools-grid">
+        <a href="#" class="ph-tool">
+          <div class="ph-tool-icon blue">&#9992;</div>
+          <div>
+            <div class="ph-tool-name">Card Value Calculator</div>
+            <div class="ph-tool-desc">Find your best card match</div>
+          </div>
+        </a>
+        <a href="#" class="ph-tool">
+          <div class="ph-tool-icon red">&#128276;</div>
+          <div>
+            <div class="ph-tool-name">Seat Alerts</div>
+            <div class="ph-tool-desc">Track reward seat availability</div>
+          </div>
+        </a>
+        <a href="#" class="ph-tool">
+          <div class="ph-tool-icon amber">&#9733;</div>
+          <div>
+            <div class="ph-tool-name">Points Calculator</div>
+            <div class="ph-tool-desc">Estimate points for your trip</div>
+          </div>
+        </a>
+        <a href="#" class="ph-tool">
+          <div class="ph-tool-icon green">&#128218;</div>
+          <div>
+            <div class="ph-tool-name">Compare All Cards</div>
+            <div class="ph-tool-desc">Side-by-side card comparison</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section class="ph-section">
+    <div class="ph-section-header">
+      <div>
+        <div class="ph-section-tag">Latest</div>
+        <h2 class="ph-section-title">Guides & News</h2>
+      </div>
+      <a href="#" class="ph-section-link">All articles &rarr;</a>
+    </div>
+    <div class="ph-articles-grid">
+      <a href="#" class="ph-article">
+        <div class="ph-article-thumb" style="background: #eff6ff;">&#9992;</div>
+        <div class="ph-article-body">
+          <div class="ph-article-cat">Beginner Guide</div>
+          <div class="ph-article-title">How Frequent Flyer Points Actually Work in 2026</div>
+          <div class="ph-article-meta">8 min read &middot; Updated Feb 2026</div>
+        </div>
+      </a>
+      <a href="#" class="ph-article">
+        <div class="ph-article-thumb" style="background: #fef2f2;">&#127775;</div>
+        <div class="ph-article-body">
+          <div class="ph-article-cat">Credit Cards</div>
+          <div class="ph-article-title">Best Qantas Credit Cards: March 2026 Rankings</div>
+          <div class="ph-article-meta">12 min read &middot; Updated Mar 2026</div>
+        </div>
+      </a>
+      <a href="#" class="ph-article">
+        <div class="ph-article-thumb" style="background: #f0fdf4;">&#128176;</div>
+        <div class="ph-article-body">
+          <div class="ph-article-cat">Strategy</div>
+          <div class="ph-article-title">Qantas vs Velocity: Which Program Should You Choose?</div>
+          <div class="ph-article-meta">10 min read &middot; Updated Feb 2026</div>
+        </div>
+      </a>
+      <a href="#" class="ph-article">
+        <div class="ph-article-thumb" style="background: #fffbeb;">&#128745;</div>
+        <div class="ph-article-body">
+          <div class="ph-article-cat">Reviews</div>
+          <div class="ph-article-title">Business Class to Tokyo: Best Ways to Book With Points</div>
+          <div class="ph-article-meta">15 min read &middot; Updated Mar 2026</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PERRY CTA -->
+  <section class="ph-section" style="padding-top: 0;">
+    <div class="ph-perry-banner">
+      <div class="ph-perry-banner-text">
+        <h3>Need help choosing a card?</h3>
+        <p>Perry, our AI points co-pilot, can recommend the perfect card based on your travel goals, spending habits, and preferred program. Try it now.</p>
+      </div>
+      <div class="ph-perry-banner-visual">
+        <div class="ph-perry-avatar">&#9992;</div>
+        <a href="#" class="ph-btn ph-btn-primary" onclick="return false;">Chat with Perry &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ph-footer">
+    <div class="ph-footer-inner">
+      <div class="ph-footer-grid">
+        <div class="ph-footer-brand">
+          <a href="#" class="ph-logo" style="color: white;">
+            <div class="ph-logo-icon">PH</div>
+            <div class="ph-logo-text" style="color: white;">Point<span>Hacks</span></div>
+          </a>
+          <p>Australia's #1 resource for frequent flyer points, credit card reviews, and reward seat strategies since 2013.</p>
+        </div>
+        <div class="ph-footer-col">
+          <div class="ph-footer-col-title">Programs</div>
+          <a href="#">Qantas Frequent Flyer</a>
+          <a href="#">Velocity Frequent Flyer</a>
+          <a href="#">KrisFlyer</a>
+          <a href="#">Asia Miles</a>
+        </div>
+        <div class="ph-footer-col">
+          <div class="ph-footer-col-title">Resources</div>
+          <a href="#">Credit Card Deals</a>
+          <a href="#">Seat Alerts</a>
+          <a href="#">Beginner Guides</a>
+          <a href="#">Calculators & Tools</a>
+        </div>
+        <div class="ph-footer-col">
+          <div class="ph-footer-col-title">Company</div>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+      <div class="ph-footer-bottom">
+        <div class="ph-footer-copy">&copy; 2026 Point Hacks Pty Ltd. All rights reserved.</div>
+        <div class="ph-footer-disclaimer">Point Hacks is not a financial adviser. Credit card information is general in nature and does not consider your personal objectives, financial situation, or needs. Consider seeking independent financial advice.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHAT WIDGET (React) -->
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

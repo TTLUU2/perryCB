@@ -1,0 +1,262 @@
+[
+  {
+    "cta_id": "email-starter-course",
+    "cta_type": "email_capture",
+    "label": "Free Point Hacking Email Course",
+    "url": "https://join.pointhacks.com.au/earning-points-credit-cards/",
+    "context_rules": {
+      "intents": ["LEARNING"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 10,
+    "is_active": true
+  },
+  {
+    "cta_id": "email-manage-subscriptions",
+    "cta_type": "email_capture",
+    "label": "Manage your Point Hacks email subscriptions",
+    "url": "https://join.pointhacks.com.au/emails/",
+    "context_rules": {
+      "intents": ["LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 3,
+    "is_active": true
+  },
+  {
+    "cta_id": "seat-alert-create",
+    "cta_type": "seat_alert_create",
+    "label": "Set up a free Seat Alert",
+    "url": "https://www.pointhacks.com.au/seat-alerts/create/",
+    "context_rules": {
+      "intents": ["SEAT_ALERTS"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 10,
+    "is_active": true
+  },
+  {
+    "cta_id": "seat-alert-premium",
+    "cta_type": "seat_alert_create",
+    "label": "Upgrade to Premium Seat Alerts",
+    "url": "https://www.pointhacks.com.au/seat-alerts/premium/",
+    "context_rules": {
+      "intents": ["SEAT_ALERTS"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 5,
+    "is_active": true
+  },
+  {
+    "cta_id": "credit-card-index",
+    "cta_type": "guide_link",
+    "label": "Browse all credit card offers",
+    "url": "https://www.pointhacks.com.au/credit-cards/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "LEARNING", "ARTICLE_FOLLOWUP", "OTHER"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 7,
+    "is_active": true
+  },
+  {
+    "cta_id": "card-value-calculator",
+    "cta_type": "guide_link",
+    "label": "Card Value Calculator — find your best card",
+    "url": "https://www.pointhacks.com.au/card-value-calculator-intro/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "LEARNING"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 9,
+    "is_active": true
+  },
+  {
+    "cta_id": "credit-cards-master-table",
+    "cta_type": "guide_link",
+    "label": "Credit Card Master Table — compare all cards",
+    "url": "https://www.pointhacks.com.au/tools-calculators/credit-cards-master-table/",
+    "context_rules": {
+      "intents": ["CARD_MATCH"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 6,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-qantas-cards",
+    "cta_type": "guide_link",
+    "label": "Best Qantas Frequent Flyer credit cards",
+    "url": "https://www.pointhacks.com.au/credit-cards/qantas-frequent-flyer-cards/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": ["qantas"]
+    },
+    "priority": 8,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-velocity-cards",
+    "cta_type": "guide_link",
+    "label": "Best Velocity Frequent Flyer credit cards",
+    "url": "https://www.pointhacks.com.au/credit-cards/velocity-frequent-flyer-cards/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": ["velocity"]
+    },
+    "priority": 8,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-amex-cards",
+    "cta_type": "guide_link",
+    "label": "Best American Express cards",
+    "url": "https://www.pointhacks.com.au/credit-cards/american-express-cards/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 6,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-krisflyer-cards",
+    "cta_type": "guide_link",
+    "label": "Best KrisFlyer credit cards",
+    "url": "https://www.pointhacks.com.au/credit-cards/singapore-airlines-krisflyer/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": ["krisflyer"]
+    },
+    "priority": 8,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-no-fee-cards",
+    "cta_type": "guide_link",
+    "label": "Best no annual fee rewards cards",
+    "url": "https://www.pointhacks.com.au/credit-cards/no-annual-fee-frequent-flyer-credit-cards/",
+    "context_rules": {
+      "intents": ["CARD_MATCH"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 7,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-start-earning",
+    "cta_type": "guide_link",
+    "label": "Guide: Start Earning Points",
+    "url": "https://www.pointhacks.com.au/guides/first-principles-earning-points/",
+    "context_rules": {
+      "intents": ["LEARNING"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 8,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-start-using",
+    "cta_type": "guide_link",
+    "label": "Guide: Start Using Points",
+    "url": "https://www.pointhacks.com.au/guides/using-points-basics/",
+    "context_rules": {
+      "intents": ["LEARNING", "SEAT_ALERTS"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 7,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-qantas-program",
+    "cta_type": "guide_link",
+    "label": "Qantas Frequent Flyer — complete guide",
+    "url": "https://www.pointhacks.com.au/qantas/",
+    "context_rules": {
+      "intents": ["LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": ["qantas"]
+    },
+    "priority": 7,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-velocity-program",
+    "cta_type": "guide_link",
+    "label": "Velocity Frequent Flyer — complete guide",
+    "url": "https://www.pointhacks.com.au/velocity/",
+    "context_rules": {
+      "intents": ["LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": ["velocity"]
+    },
+    "priority": 7,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-krisflyer-program",
+    "cta_type": "guide_link",
+    "label": "KrisFlyer — complete guide",
+    "url": "https://www.pointhacks.com.au/krisflyer/",
+    "context_rules": {
+      "intents": ["LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": ["krisflyer"]
+    },
+    "priority": 7,
+    "is_active": true
+  },
+  {
+    "cta_id": "guide-all-beginners",
+    "cta_type": "guide_link",
+    "label": "All Beginners Guides",
+    "url": "https://www.pointhacks.com.au/ultimate-guides/",
+    "context_rules": {
+      "intents": ["LEARNING"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 6,
+    "is_active": true
+  },
+  {
+    "cta_id": "tools-calculators",
+    "cta_type": "guide_link",
+    "label": "Points tools & calculators",
+    "url": "https://www.pointhacks.com.au/tools-calculators/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "SEAT_ALERTS", "LEARNING"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 5,
+    "is_active": true
+  },
+  {
+    "cta_id": "best-deals",
+    "cta_type": "guide_link",
+    "label": "Best frequent flyer deals right now",
+    "url": "https://www.pointhacks.com.au/best-frequent-flyer-deals/",
+    "context_rules": {
+      "intents": ["CARD_MATCH", "LEARNING", "ARTICLE_FOLLOWUP"],
+      "page_types": null,
+      "programs": null
+    },
+    "priority": 8,
+    "is_active": true
+  }
+]

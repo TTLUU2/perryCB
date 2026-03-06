@@ -1,0 +1,655 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Points Genie / Perry Widget Styles */
+
+.pg-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Chat panel */
+.pg-chat-panel {
+  width: 390px;
+  height: 580px;
+  max-height: calc(100vh - 100px);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: white;
+  animation: pg-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pg-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Gradient header */
+.pg-header {
+  background: linear-gradient(135deg, #1a56db 0%, #2563eb 50%, #3b82f6 100%);
+  padding: 14px 16px;
+  border-radius: 20px 20px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.pg-header::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Mobile full-screen */
+@media (max-width: 767px) {
+  .pg-widget-container {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+  }
+
+  .pg-chat-panel {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .pg-header {
+    border-radius: 0;
+  }
+}
+
+/* Message area */
+.pg-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  scroll-behavior: smooth;
+  background: linear-gradient(180deg, #d4e6fc 0%, #e4effd 30%, #f0f6ff 60%, #f8fbff 100%);
+  position: relative;
+}
+
+/* Message bubbles */
+.pg-bubble-user {
+  background: #1a56db;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.pg-bubble-assistant {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Animated background layer — sits behind messages */
+.pg-bg-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.pg-messages > *:not(.pg-bg-scene) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tourism landmark silhouettes — subtle skyline along bottom */
+.pg-landmark {
+  position: absolute;
+  bottom: 8px;
+  color: rgba(26, 86, 219, 0.07);
+}
+.pg-landmark--opera {
+  left: 3%;
+  width: 55px;
+  height: 28px;
+  animation: pg-landmark-bob 10s ease-in-out infinite;
+}
+.pg-landmark--eiffel {
+  left: 22%;
+  width: 20px;
+  height: 52px;
+  animation: pg-landmark-bob 12s ease-in-out infinite;
+  animation-delay: -3s;
+}
+.pg-landmark--bigben {
+  left: 42%;
+  width: 13px;
+  height: 48px;
+  animation: pg-landmark-bob 11s ease-in-out infinite;
+  animation-delay: -6s;
+}
+.pg-landmark--tokyo {
+  left: 62%;
+  width: 18px;
+  height: 50px;
+  animation: pg-landmark-bob 13s ease-in-out infinite;
+  animation-delay: -2s;
+}
+.pg-landmark--liberty {
+  right: 5%;
+  width: 22px;
+  height: 46px;
+  animation: pg-landmark-bob 9s ease-in-out infinite;
+  animation-delay: -5s;
+}
+@keyframes pg-landmark-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Cloud shapes — soft white blobs drifting right */
+.pg-cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.55;
+  animation: pg-drift-cloud linear infinite;
+}
+.pg-cloud::before,
+.pg-cloud::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: inherit;
+}
+/* Cloud variant 1 — larger puff */
+.pg-cloud--1 {
+  width: 60px;
+  height: 22px;
+  top: 12%;
+  animation-duration: 35s;
+  animation-delay: 0s;
+}
+.pg-cloud--1::before {
+  width: 28px;
+  height: 28px;
+  top: -14px;
+  left: 10px;
+}
+.pg-cloud--1::after {
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  left: 32px;
+}
+/* Cloud variant 2 — smaller, higher */
+.pg-cloud--2 {
+  width: 42px;
+  height: 16px;
+  top: 32%;
+  opacity: 0.4;
+  animation-duration: 45s;
+  animation-delay: -12s;
+}
+.pg-cloud--2::before {
+  width: 20px;
+  height: 20px;
+  top: -10px;
+  left: 6px;
+}
+.pg-cloud--2::after {
+  width: 14px;
+  height: 14px;
+  top: -7px;
+  left: 22px;
+}
+/* Cloud variant 3 — mid-level */
+.pg-cloud--3 {
+  width: 50px;
+  height: 18px;
+  top: 58%;
+  opacity: 0.35;
+  animation-duration: 40s;
+  animation-delay: -20s;
+}
+.pg-cloud--3::before {
+  width: 24px;
+  height: 24px;
+  top: -12px;
+  left: 8px;
+}
+.pg-cloud--3::after {
+  width: 16px;
+  height: 16px;
+  top: -8px;
+  left: 28px;
+}
+/* Cloud variant 4 — low wispy */
+.pg-cloud--4 {
+  width: 36px;
+  height: 12px;
+  top: 78%;
+  opacity: 0.3;
+  animation-duration: 50s;
+  animation-delay: -30s;
+}
+.pg-cloud--4::before {
+  width: 16px;
+  height: 16px;
+  top: -8px;
+  left: 5px;
+}
+.pg-cloud--4::after {
+  width: 12px;
+  height: 12px;
+  top: -6px;
+  left: 18px;
+}
+
+/* Cloud variant 5 — large slow background cloud */
+.pg-cloud--5 {
+  width: 70px;
+  height: 26px;
+  top: 44%;
+  opacity: 0.2;
+  animation-duration: 55s;
+  animation-delay: -8s;
+}
+.pg-cloud--5::before {
+  width: 32px;
+  height: 32px;
+  top: -16px;
+  left: 12px;
+}
+.pg-cloud--5::after {
+  width: 24px;
+  height: 24px;
+  top: -12px;
+  left: 38px;
+}
+
+@keyframes pg-drift-cloud {
+  from { left: -80px; }
+  to   { left: calc(100% + 80px); }
+}
+
+/* Floating sparkles — tiny glinting dots */
+.pg-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(253, 224, 71, 0.6);
+  animation: pg-twinkle ease-in-out infinite;
+}
+.pg-sparkle--1 { top: 8%; left: 75%; animation-duration: 3s; animation-delay: 0s; }
+.pg-sparkle--2 { top: 22%; left: 20%; animation-duration: 4s; animation-delay: -1.5s; width: 3px; height: 3px; }
+.pg-sparkle--3 { top: 38%; left: 85%; animation-duration: 3.5s; animation-delay: -0.8s; }
+.pg-sparkle--4 { top: 55%; left: 12%; animation-duration: 4.5s; animation-delay: -2s; width: 3px; height: 3px; }
+.pg-sparkle--5 { top: 15%; left: 50%; animation-duration: 3.2s; animation-delay: -1s; width: 5px; height: 5px; background: rgba(255, 255, 255, 0.7); }
+.pg-sparkle--6 { top: 68%; left: 65%; animation-duration: 3.8s; animation-delay: -2.5s; width: 3px; height: 3px; }
+
+@keyframes pg-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Contrails — thin fading lines trailing across */
+.pg-contrail {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.3) 80%, transparent 100%);
+  animation: pg-drift-contrail linear infinite;
+}
+.pg-contrail--1 {
+  top: 25%;
+  width: 80px;
+  animation-duration: 14s;
+  animation-delay: -4s;
+}
+.pg-contrail--2 {
+  top: 60%;
+  width: 60px;
+  opacity: 0.6;
+  animation-duration: 18s;
+  animation-delay: -10s;
+}
+
+@keyframes pg-drift-contrail {
+  from { left: -100px; }
+  to   { left: calc(100% + 100px); }
+}
+
+/* Mini planes — tiny silhouettes flying across */
+.pg-mini-plane {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  opacity: 0.18;
+  animation: pg-fly-plane linear infinite;
+}
+.pg-mini-plane--1 {
+  top: 20%;
+  animation-duration: 18s;
+  animation-delay: -3s;
+}
+.pg-mini-plane--2 {
+  top: 50%;
+  animation-duration: 24s;
+  animation-delay: -10s;
+  width: 10px;
+  height: 10px;
+  opacity: 0.12;
+}
+.pg-mini-plane--3 {
+  top: 72%;
+  animation-duration: 20s;
+  animation-delay: -16s;
+  width: 12px;
+  height: 12px;
+  opacity: 0.15;
+}
+
+@keyframes pg-fly-plane {
+  from { left: -20px; transform: rotate(-8deg); }
+  to   { left: calc(100% + 20px); transform: rotate(-8deg); }
+}
+
+.pg-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.pg-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pg-messages::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+/* Typing indicator */
+.pg-typing-dot {
+  animation: pg-bounce 1.4s ease-in-out infinite;
+}
+.pg-typing-dot:nth-child(1) { animation-delay: 0s; }
+.pg-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.pg-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pg-bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+/* CTA card styles */
+.pg-cta-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 10px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.pg-cta-card:hover {
+  border-color: #93bbfd;
+  box-shadow: 0 2px 8px rgba(26, 86, 219, 0.08);
+}
+
+.pg-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: linear-gradient(135deg, #1a56db 0%, #2563eb 100%);
+  color: white;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(26, 86, 219, 0.2);
+}
+.pg-cta-button:hover {
+  background: linear-gradient(135deg, #1640a0 0%, #1a56db 100%);
+  box-shadow: 0 4px 10px rgba(26, 86, 219, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Suggested topic chips */
+.pg-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 16px;
+  border-top: 1px solid #f3f4f6;
+  background: #fafbfc;
+  animation: pg-fade-in 0.25s ease-out;
+}
+
+@keyframes pg-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pg-suggestion-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 14px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #1a56db;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.pg-suggestion-chip:hover:not(:disabled) {
+  background: #dbeafe;
+  border-color: #93bbfd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(26, 86, 219, 0.1);
+}
+.pg-suggestion-chip:active:not(:disabled) {
+  transform: translateY(0);
+}
+.pg-suggestion-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pg-suggestion-nba {
+  color: #b45309;
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.pg-suggestion-nba:hover:not(:disabled) {
+  background: #fef3c7;
+  border-color: #fcd34d;
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.1);
+}
+
+/* Markdown content in messages */
+.pg-message-content p {
+  margin: 0 0 8px;
+}
+.pg-message-content p:last-child {
+  margin-bottom: 0;
+}
+.pg-message-content strong {
+  font-weight: 600;
+}
+.pg-message-content a {
+  color: #1a56db;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.pg-message-content a:hover {
+  color: #1640a0;
+}
+
+/* Tools & Resources drawer */
+.pg-tools-drawer {
+  border-bottom: 1px solid #f3f4f6;
+  background: #fafbfc;
+}
+
+.pg-tools-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: background 0.15s;
+}
+.pg-tools-toggle:hover {
+  background: #f3f4f6;
+}
+
+.pg-tools-grid-wrapper {
+  overflow: hidden;
+  transition: max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+.pg-tools-open {
+  max-height: 200px;
+  opacity: 1;
+}
+.pg-tools-closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.pg-tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 0 12px 10px;
+}
+
+.pg-tool-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.pg-tool-card:hover {
+  border-color: #93bbfd;
+  box-shadow: 0 1px 4px rgba(26, 86, 219, 0.08);
+}
+
+/* Saved items panel */
+.pg-saved-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+}
+
+.pg-saved-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: white;
+  position: relative;
+}
+.pg-saved-item:hover {
+  border-color: #bfdbfe;
+}
+
+/* Profile panel */
+.pg-profile-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px;
+  background: linear-gradient(180deg, #f8faff 0%, #ffffff 100%);
+}
+
+/* Toast notification */
+.pg-toast {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1A56DB;
+  color: white;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  animation: pg-toast-in 0.2s ease-out, pg-toast-out 0.2s ease-in 1.3s forwards;
+  pointer-events: none;
+}
+
+@keyframes pg-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes pg-toast-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Bookmark button on messages */
+.pg-bookmark-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.pg-bookmark-btn.pg-bookmarked {
+  opacity: 1;
+  color: #1A56DB;
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+
+/* Show on hover of parent message */
+.pg-msg-wrapper:hover .pg-bookmark-btn {
+  opacity: 1;
+}
+
+/* Floating button pulse animation */
+.pg-fab-pulse {
+  animation: pg-pulse 2s infinite;
+}
+
+@keyframes pg-pulse {
+  0% { box-shadow: 0 4px 16px rgba(26, 86, 219, 0.3); }
+  50% { box-shadow: 0 4px 24px rgba(26, 86, 219, 0.5); }
+  100% { box-shadow: 0 4px 16px rgba(26, 86, 219, 0.3); }
+}

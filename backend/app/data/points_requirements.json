@@ -1,0 +1,103 @@
+{
+  "routes": [
+    {
+      "origin": "SYD",
+      "destination": "TYO",
+      "programs": {
+        "qantas": { "economy": 36000, "premium_economy": 54000, "business": 72000, "first": 108000 },
+        "velocity": { "economy": 35500, "premium_economy": null, "business": 78500, "first": null },
+        "krisflyer": { "economy": 35000, "premium_economy": 53000, "business": 82000, "first": 105000 }
+      }
+    },
+    {
+      "origin": "SYD",
+      "destination": "SIN",
+      "programs": {
+        "qantas": { "economy": 28800, "premium_economy": 43200, "business": 60000, "first": 90000 },
+        "velocity": { "economy": 28000, "premium_economy": null, "business": 62000, "first": null },
+        "krisflyer": { "economy": 26500, "premium_economy": 42000, "business": 62000, "first": 85000 }
+      }
+    },
+    {
+      "origin": "MEL",
+      "destination": "LON",
+      "programs": {
+        "qantas": { "economy": 55800, "premium_economy": 84000, "business": 128400, "first": 192600 },
+        "velocity": { "economy": 55000, "premium_economy": null, "business": 119500, "first": null },
+        "krisflyer": { "economy": 57500, "premium_economy": 80000, "business": 115000, "first": 155000 }
+      }
+    },
+    {
+      "origin": "SYD",
+      "destination": "LAX",
+      "programs": {
+        "qantas": { "economy": 43200, "premium_economy": 64800, "business": 96000, "first": 144000 },
+        "velocity": { "economy": 49500, "premium_economy": null, "business": 95500, "first": null },
+        "krisflyer": { "economy": 40000, "premium_economy": 60000, "business": 92000, "first": 120000 }
+      }
+    },
+    {
+      "origin": "BNE",
+      "destination": "HNL",
+      "programs": {
+        "qantas": { "economy": 36000, "premium_economy": 54000, "business": 72000, "first": null },
+        "velocity": { "economy": 35500, "premium_economy": null, "business": 68000, "first": null },
+        "krisflyer": { "economy": 35000, "premium_economy": 53000, "business": 77000, "first": null }
+      }
+    },
+    {
+      "origin": "MEL",
+      "destination": "TYO",
+      "programs": {
+        "qantas": { "economy": 36000, "premium_economy": 54000, "business": 72000, "first": 108000 },
+        "velocity": { "economy": 35500, "premium_economy": null, "business": 78500, "first": null },
+        "krisflyer": { "economy": 35000, "premium_economy": 53000, "business": 82000, "first": 105000 }
+      }
+    },
+    {
+      "origin": "SYD",
+      "destination": "HKG",
+      "programs": {
+        "qantas": { "economy": 36000, "premium_economy": 54000, "business": 72000, "first": 108000 },
+        "velocity": { "economy": 35500, "premium_economy": null, "business": 78500, "first": null },
+        "krisflyer": { "economy": 30000, "premium_economy": 45000, "business": 70000, "first": 95000 }
+      }
+    },
+    {
+      "origin": "SYD",
+      "destination": "DPS",
+      "programs": {
+        "qantas": { "economy": 18000, "premium_economy": 27000, "business": 36000, "first": null },
+        "velocity": { "economy": 18000, "premium_economy": null, "business": 35500, "first": null },
+        "krisflyer": { "economy": 17500, "premium_economy": 25000, "business": 40000, "first": null }
+      }
+    },
+    {
+      "origin": "SYD",
+      "destination": "AKL",
+      "programs": {
+        "qantas": { "economy": 18000, "premium_economy": 27000, "business": 36000, "first": null },
+        "velocity": { "economy": 15500, "premium_economy": null, "business": 25500, "first": null },
+        "krisflyer": { "economy": 17500, "premium_economy": 25000, "business": 35000, "first": null }
+      }
+    },
+    {
+      "origin": "SYD",
+      "destination": "BKK",
+      "programs": {
+        "qantas": { "economy": 28800, "premium_economy": 43200, "business": 60000, "first": 90000 },
+        "velocity": { "economy": 28000, "premium_economy": null, "business": 62000, "first": null },
+        "krisflyer": { "economy": 30000, "premium_economy": 45000, "business": 65000, "first": 90000 }
+      }
+    }
+  ],
+  "common_city_codes": {
+    "Sydney": "SYD", "Melbourne": "MEL", "Brisbane": "BNE", "Perth": "PER",
+    "Adelaide": "ADL", "Canberra": "CBR", "Gold Coast": "OOL", "Cairns": "CNS",
+    "Tokyo": "TYO", "Singapore": "SIN", "London": "LON", "Los Angeles": "LAX",
+    "New York": "NYC", "Hong Kong": "HKG", "Bangkok": "BKK", "Bali": "DPS",
+    "Honolulu": "HNL", "Fiji": "NAN", "Auckland": "AKL", "Paris": "PAR",
+    "Osaka": "KIX", "Seoul": "ICN", "Taipei": "TPE", "Dubai": "DXB",
+    "Rome": "FCO", "Vancouver": "YVR", "San Francisco": "SFO"
+  }
+}
