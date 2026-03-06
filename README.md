@@ -170,6 +170,7 @@ npx tsc --noEmit  # TypeScript type check, zero errors
 | `LLM_MAX_RETRIES` | No | `3` | Max retry attempts |
 | `SESSION_TTL` | No | `1800` | Session TTL in seconds (30 min) |
 | `LOG_LEVEL` | No | `INFO` | Logging level |
+| `PORT` | No | `8000` | Server port (set automatically by Render) |
 
 ## API Endpoints
 
@@ -224,13 +225,74 @@ A 24-hour freshness rule enforces that card data is kept current:
 
 ## Deployment
 
-### Backend (Railway/Render)
+### Production (Render + Upstash Redis)
+
+The app runs as a single Render Web Service that serves both the API (`/api/*`) and the built frontend static files from one URL — no CORS complexity.
+
+**Architecture:**
+
+```
+User's browser → Render (FastAPI) → Anthropic (Claude)
+                    ↕
+              Upstash Redis (sessions)
+```
+
+- **Render** hosts the app — builds the Docker container (frontend + backend) from GitHub, serves it at a public URL
+- **Anthropic Claude** is the LLM brain — handles intent classification, slot filling, and response generation
+- **Upstash Redis** stores chat sessions — maintains conversation context across messages (30 min TTL)
+
+**How it works:**
+
+A multi-stage `Dockerfile` at the project root builds the frontend (Node 20), then copies the output into the backend's `static/` directory. FastAPI serves API routes at `/api/*` and the frontend SPA for everything else.
+
+**Setup:**
+
+1. Push to GitHub (repo: `TTLUU2/perryCB`)
+2. Create a free Redis database on [Upstash](https://upstash.com) — copy the `rediss://` URL
+3. Create a Web Service on [Render](https://render.com) — connect the GitHub repo
+4. Render auto-detects `render.yaml` and the Docker runtime
+5. Set secret env vars in the Render dashboard:
+   - `ANTHROPIC_API_KEY` — from [Anthropic Console](https://console.anthropic.com/settings/keys)
+   - `REDIS_URL` — Upstash Redis URL (format: `rediss://default:xxx@xxx.upstash.io:6379`)
+6. Deploy — app is live at `https://<service-name>.onrender.com`
+
+**Config files:**
+
+| File | Purpose |
+|---|---|
+| `Dockerfile` (root) | Multi-stage build: Node frontend → Python backend + static files |
+| `render.yaml` | Render service config, env var declarations |
+| `backend/Dockerfile` | Backend-only Docker build (for local use) |
+
+### Local Development
+
+Backend and frontend run separately with hot-reload:
 
 ```bash
+# Terminal 1 — Backend
 cd backend
-docker build -t points-genie-api .
-docker run -p 8000:8000 --env-file .env points-genie-api
+uvicorn app.main:app --reload --port 8000
+
+# Terminal 2 — Frontend (proxies /api to backend)
+cd frontend
+npm run dev
 ```
+
+Open http://localhost:5173.
+
+### Local Docker Build
+
+Test the production Docker build locally:
+
+```bash
+docker build -t points-genie .
+docker run -p 8000:8000 \
+  -e ANTHROPIC_API_KEY=your_key \
+  -e REDIS_URL=redis://localhost:6379 \
+  points-genie
+```
+
+Open http://localhost:8000.
 
 ### Frontend Widget (CDN)
 
