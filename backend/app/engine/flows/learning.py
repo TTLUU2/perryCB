@@ -46,7 +46,7 @@ def get_step_instructions(step: FlowStep, session: SessionState) -> str:
 
     if step == FlowStep.LN_EMAIL_CTA:
         return (
-            "Offer the email sign-up: 'Want me to send you our free 5-Day Points Starter Toolkit?' "
+            "Offer the email sign-up: 'Want me to send you our free 5-Day Points Starter Kit?' "
             "Use cta_lookup with cta_type='email_capture' and intent='LEARNING'. "
             "Present the CTA naturally."
         )

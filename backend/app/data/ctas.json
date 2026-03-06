@@ -2,8 +2,8 @@
   {
     "cta_id": "email-starter-course",
     "cta_type": "email_capture",
-    "label": "Free Point Hacking Email Course",
-    "url": "https://join.pointhacks.com.au/earning-points-credit-cards/",
+    "label": "Free 5-Day Points Starter Kit",
+    "url": "https://join.pointhacks.com.au/emails/",
     "context_rules": {
       "intents": ["LEARNING"],
       "page_types": null,
