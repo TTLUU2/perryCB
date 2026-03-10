@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ChatPanel } from './ChatPanel';
 import { PerryIcon } from './PerryIcon';
 import { useChat } from '../hooks/useChat';
@@ -11,6 +11,16 @@ import { Suggestion } from '../types';
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Lock body scroll on mobile when chat is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('pg-chat-open');
+    } else {
+      document.body.classList.remove('pg-chat-open');
+    }
+    return () => document.body.classList.remove('pg-chat-open');
+  }, [isOpen]);
   const pageContext = usePageContext();
   const { profile, updateField, hasAnyPreference } = useUserProfile();
   const { items: savedItems, saveMessage, removeItem, updateNotes, isSaved, count: savedCount } = useSavedItems();
