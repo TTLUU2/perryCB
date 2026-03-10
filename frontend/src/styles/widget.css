@@ -116,6 +116,11 @@
     left: 0 !important;
     right: 0 !important;
   }
+
+  /* Hide all page content when chat is open — bulletproof iOS scroll prevention */
+  body.pg-chat-open > *:not(#root) {
+    display: none !important;
+  }
 }
 
 /* Message area */

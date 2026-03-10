@@ -13,20 +13,35 @@ export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Lock body + html scroll when chat is open — prevents landing page showing behind
-  // position:fixed on body is required for iOS Safari (overflow:hidden alone is not enough)
   useEffect(() => {
-    if (isOpen) {
-      const scrollY = window.scrollY;
-      document.documentElement.classList.add('pg-chat-open');
-      document.body.classList.add('pg-chat-open');
-      document.body.style.top = `-${scrollY}px`;
-      return () => {
-        document.documentElement.classList.remove('pg-chat-open');
-        document.body.classList.remove('pg-chat-open');
-        document.body.style.top = '';
-        window.scrollTo(0, scrollY);
-      };
-    }
+    if (!isOpen) return;
+
+    const scrollY = window.scrollY;
+    document.documentElement.classList.add('pg-chat-open');
+    document.body.classList.add('pg-chat-open');
+    document.body.style.top = `-${scrollY}px`;
+
+    // Block touchmove on document — allow only within scrollable chat areas
+    const blockTouch = (e: TouchEvent) => {
+      let el = e.target as HTMLElement | null;
+      while (el && el !== document.body) {
+        const { overflowY } = window.getComputedStyle(el);
+        if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
+          return; // allow scroll inside chat message list, lesson content, etc.
+        }
+        el = el.parentElement;
+      }
+      e.preventDefault();
+    };
+    document.addEventListener('touchmove', blockTouch, { passive: false });
+
+    return () => {
+      document.removeEventListener('touchmove', blockTouch);
+      document.documentElement.classList.remove('pg-chat-open');
+      document.body.classList.remove('pg-chat-open');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollY);
+    };
   }, [isOpen]);
   const pageContext = usePageContext();
   const { profile, updateField, hasAnyPreference } = useUserProfile();
