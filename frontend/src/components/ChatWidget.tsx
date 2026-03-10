@@ -64,7 +64,7 @@ export function ChatWidget() {
   }
 
   return (
-    <div className="pg-widget-container">
+    <div className="pg-widget-container pg-widget-container--open">
       <ChatPanel
         messages={messages}
         isStreaming={isStreaming}

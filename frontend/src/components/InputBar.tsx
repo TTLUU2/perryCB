@@ -42,7 +42,7 @@ export function InputBar({ onSend, disabled }: InputBarProps) {
   };
 
   return (
-    <div className="flex items-end gap-2 p-3 border-t border-ph-gray-100 bg-white rounded-b-[20px]">
+    <div className="pg-input-bar flex items-end gap-2 p-3 border-t border-ph-gray-100 bg-white rounded-b-[20px]">
       <textarea
         ref={inputRef}
         value={text}
