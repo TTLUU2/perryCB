@@ -3,7 +3,7 @@
     "cta_id": "email-starter-course",
     "cta_type": "email_capture",
     "label": "Free 5-Day Points Starter Kit",
-    "url": "https://join.pointhacks.com.au/emails/",
+    "url": "https://www.pointhacks.com.au/emails/",
     "context_rules": {
       "intents": ["LEARNING"],
       "page_types": null,
@@ -16,7 +16,7 @@
     "cta_id": "email-manage-subscriptions",
     "cta_type": "email_capture",
     "label": "Manage your Point Hacks email subscriptions",
-    "url": "https://join.pointhacks.com.au/emails/",
+    "url": "https://www.pointhacks.com.au/emails/",
     "context_rules": {
       "intents": ["LEARNING", "ARTICLE_FOLLOWUP"],
       "page_types": null,
