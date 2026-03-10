@@ -12,14 +12,16 @@ import { Suggestion } from '../types';
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Lock body scroll when chat is open — prevents landing page showing behind
+  // Lock body + html scroll when chat is open — prevents landing page showing behind
+  // position:fixed on body is required for iOS Safari (overflow:hidden alone is not enough)
   useEffect(() => {
     if (isOpen) {
-      // Store scroll position before locking
       const scrollY = window.scrollY;
+      document.documentElement.classList.add('pg-chat-open');
       document.body.classList.add('pg-chat-open');
       document.body.style.top = `-${scrollY}px`;
       return () => {
+        document.documentElement.classList.remove('pg-chat-open');
         document.body.classList.remove('pg-chat-open');
         document.body.style.top = '';
         window.scrollTo(0, scrollY);
