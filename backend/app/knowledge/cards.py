@@ -16,12 +16,35 @@ def _load_cards() -> list[dict[str, Any]]:
     return _cards
 
 
+def _parse_ratio(ratio_str: str) -> float:
+    """Parse '2:1' → 2.0, '4:3' → 1.333. Returns 1.0 if unparseable."""
+    try:
+        parts = ratio_str.split(":")
+        return float(parts[0]) / float(parts[1])
+    except (ValueError, IndexError, ZeroDivisionError):
+        return 1.0
+
+
+def _effective_bonus(card: dict, target_program: str) -> float:
+    """Compute effective bonus points in the target program."""
+    bonus = card.get("signup_bonus", {}).get("points", 0)
+    if not target_program or target_program == "any":
+        return bonus
+    if card.get("program") == target_program:
+        return bonus  # Direct earner
+    for tp in card.get("transfer_partners", []):
+        if tp["program"] == target_program:
+            return bonus / _parse_ratio(tp.get("ratio", "1:1"))
+    return bonus  # Fallback for flexible/unmatched
+
+
 def card_lookup(
     program: str,
     max_annual_fee: float | None = None,
     min_signup_bonus: int | None = None,
     exclude_networks: list[str] | None = None,
     tags: list[str] | None = None,
+    exclude_tags: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Filter and return matching cards, sorted by signup bonus descending."""
     cards = _load_cards()
@@ -71,10 +94,16 @@ def card_lookup(
             if not card_tags.intersection(tags):
                 continue
 
+        # Tag exclusion filter
+        if exclude_tags:
+            card_tags = set(card.get("tags", []))
+            if card_tags.intersection(exclude_tags):
+                continue
+
         results.append(card)
 
-    # Sort by signup bonus descending
-    results.sort(key=lambda c: c.get("signup_bonus", {}).get("points", 0), reverse=True)
+    # Sort by effective bonus in target program descending
+    results.sort(key=lambda c: _effective_bonus(c, program), reverse=True)
     return results[:5]
 
 

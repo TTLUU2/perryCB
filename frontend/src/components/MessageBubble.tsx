@@ -52,6 +52,10 @@ export function MessageBubble({ message, onCtaClick, onBookmark, isBookmarked }:
     }
   };
 
+  // Split CTAs: card_application goes outside the bubble, others stay inside
+  const cardCtas = message.ctas?.filter(c => c.cta_type === 'card_application') || [];
+  const otherCtas = message.ctas?.filter(c => c.cta_type !== 'card_application') || [];
+
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3 ${!isUser ? 'gap-2' : ''}`}>
       {!isUser && (
@@ -59,7 +63,7 @@ export function MessageBubble({ message, onCtaClick, onBookmark, isBookmarked }:
           <PerryIcon size={28} />
         </div>
       )}
-      <div className={`relative max-w-[80%] ${!isUser ? 'pg-msg-wrapper' : ''}`}>
+      <div className={`relative ${cardCtas.length > 0 ? 'max-w-[92%]' : 'max-w-[80%]'} ${!isUser ? 'pg-msg-wrapper' : ''}`}>
         <div
           className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
             isUser
@@ -73,9 +77,9 @@ export function MessageBubble({ message, onCtaClick, onBookmark, isBookmarked }:
               dangerouslySetInnerHTML={{ __html: renderMarkdown(message.content) }}
             />
           )}
-          {message.ctas && message.ctas.length > 0 && (
+          {otherCtas.length > 0 && (
             <div className="mt-2">
-              {message.ctas.map((cta, i) => (
+              {otherCtas.map((cta, i) => (
                 <CtaRenderer key={`${cta.cta_id}-${i}`} cta={cta} onCtaClick={onCtaClick} />
               ))}
             </div>
@@ -88,6 +92,15 @@ export function MessageBubble({ message, onCtaClick, onBookmark, isBookmarked }:
             </div>
           )}
         </div>
+
+        {/* Card CTAs — rendered outside the bubble for more width */}
+        {cardCtas.length > 0 && (
+          <div className="mt-2">
+            {cardCtas.map((cta, i) => (
+              <CtaRenderer key={`${cta.cta_id}-${i}`} cta={cta} onCtaClick={onCtaClick} />
+            ))}
+          </div>
+        )}
 
         {/* Bookmark button — assistant messages only */}
         {!isUser && !message.isStreaming && message.content && (

@@ -12,6 +12,7 @@ const DEFAULT_PROFILE: UserProfile = {
   destination_regions: [],
   travel_frequency: '',
   points_balance: '',
+  card_type: 'personal',
 };
 
 function loadProfile(): UserProfile {

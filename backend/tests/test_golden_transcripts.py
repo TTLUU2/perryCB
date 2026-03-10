@@ -196,10 +196,10 @@ class TestTranscript8_NoMatchingCards:
         results = card_lookup(
             program="krisflyer",
             max_annual_fee=0,
-            min_signup_bonus=100000,
+            min_signup_bonus=200000,
             exclude_networks=["amex"],
         )
-        # Should be empty — no card matches all these criteria
+        # Should be empty — no non-Amex card has 200k+ bonus with KrisFlyer transfer and $0 fee
         assert len(results) == 0
 
     def test_relaxed_search_finds_alternatives(self):

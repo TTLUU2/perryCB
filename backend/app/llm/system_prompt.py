@@ -135,6 +135,9 @@ def build_system_prompt(session: SessionState) -> str:
         if user_profile.get("points_balance") and user_profile["points_balance"] != "":
             balance_labels = {"starting": "Just starting (0 points)", "under_50k": "Under 50,000", "50_100k": "50,000-100,000", "over_100k": "Over 100,000"}
             profile_parts.append(f"Current points balance: {balance_labels.get(user_profile['points_balance'], user_profile['points_balance'])}")
+        if user_profile.get("card_type") and user_profile["card_type"] != "":
+            type_labels = {"personal": "Personal cards only", "business_and_personal": "Personal and business cards"}
+            profile_parts.append(f"Card type: {type_labels.get(user_profile['card_type'], user_profile['card_type'])}")
 
         if profile_parts:
             prompt += "\n\n<user_profile>\n" + "\n".join(profile_parts) + "\n</user_profile>"

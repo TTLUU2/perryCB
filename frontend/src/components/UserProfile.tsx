@@ -92,6 +92,18 @@ export function UserProfile({ profile, onUpdate, onBack }: UserProfileProps) {
         onChange={(v) => onUpdate('preferred_program', v as UserProfileType['preferred_program'])}
       />
 
+      {/* Card type */}
+      <RadioGroup
+        label="Card type"
+        name="card_type"
+        value={profile.card_type || 'personal'}
+        options={[
+          { value: 'personal', label: 'Personal' },
+          { value: 'business_and_personal', label: 'Include business' },
+        ]}
+        onChange={(v) => onUpdate('card_type', v as UserProfileType['card_type'])}
+      />
+
       {/* Travel goal */}
       <RadioGroup
         label="Travel goal"

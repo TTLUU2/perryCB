@@ -439,6 +439,24 @@
   40% { transform: translateY(-6px); }
 }
 
+/* Card recommendation tile */
+.pg-card-tile {
+  border-left: 4px solid #374B6A;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 8px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.pg-card-tile:first-child {
+  margin-top: 0;
+}
+.pg-card-tile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
 /* CTA card styles */
 .pg-cta-card {
   border: 1px solid #e5e7eb;

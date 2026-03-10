@@ -14,7 +14,7 @@ from app.engine.intent import classify_intent
 from app.engine.suggestions import generate_suggestions
 from app.engine.slots import extract_slots, merge_slots
 from app.knowledge.cards import card_lookup, get_card_by_id, relax_and_search
-from app.knowledge.cta import cta_lookup
+from app.knowledge.cta import build_card_recommendation_ctas, cta_lookup
 from app.knowledge.points import points_estimate
 from app.knowledge.search import knowledge_search
 from app.llm.client import create_message
@@ -132,6 +132,19 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
         else:
             session.off_topic_count += 1
 
+    elif flow_engine.is_flow_terminal(session):
+        # Current flow is complete — re-classify to allow handover
+        intent_result = await classify_intent(user_message, session.page_context)
+        new_intent = intent_result["intent"]
+        if (
+            intent_result["meets_threshold"]
+            and new_intent != session.intent.primary
+            and new_intent != Intent.OTHER
+            and flow_engine.can_handover(session)
+        ):
+            flow_engine.perform_handover(session, new_intent)
+            turn_metadata.intent_detected = new_intent.value
+
     # 3. Slot extraction
     extracted_slots = await extract_slots(
         user_message,
@@ -165,6 +178,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
     # 7. Process response — handle tool calls
     full_text = ""
     cta_events: list[dict[str, Any]] = []
+    cta_card_ids: set[str] = set()
     max_tool_rounds = 3
     current_messages = messages.copy()
 
@@ -195,20 +209,43 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
 
         for tc in tool_calls:
             turn_metadata.tools_called.append(tc.name)
-            result = _execute_tool(tc.name, tc.input)
 
-            # Track CTAs
+            # Inject business card filter based on user profile
+            if tc.name == "card_lookup":
+                profile = getattr(session, "user_profile", None) or {}
+                card_type = profile.get("card_type", "personal")
+                if card_type != "business_and_personal":
+                    result = _execute_tool(tc.name, {**tc.input, "exclude_tags": ["business"]})
+                else:
+                    result = _execute_tool(tc.name, tc.input)
+            else:
+                result = _execute_tool(tc.name, tc.input)
+
+            # Track CTAs (dedup against auto-generated card CTAs)
             if tc.name == "cta_lookup" and result:
-                cta_events.append(result)
-                if isinstance(result, dict) and result.get("cta_id"):
-                    session.analytics.ctas_shown.append(result["cta_id"])
-                    turn_metadata.cta_shown = result["cta_id"]
+                dup_card_id = result.get("card", {}).get("card_id", "") if isinstance(result, dict) else ""
+                if dup_card_id and dup_card_id in cta_card_ids:
+                    pass  # Skip duplicate card CTA
+                else:
+                    cta_events.append(result)
+                    if isinstance(result, dict) and result.get("cta_id"):
+                        session.analytics.ctas_shown.append(result["cta_id"])
+                        turn_metadata.cta_shown = result["cta_id"]
 
-            # Track card recommendations
+            # Track card recommendations + auto-gen CTAs
             if tc.name == "card_lookup" and isinstance(result, list):
                 for card in result:
                     if isinstance(card, dict) and card.get("card_id"):
                         session.analytics.cards_recommended.append(card["card_id"])
+                if session.flow_state.current_step == FlowStep.CM_RECOMMEND_CARDS:
+                    auto_ctas = build_card_recommendation_ctas(result)
+                    for ac in auto_ctas:
+                        card_id = ac.get("card", {}).get("card_id", "")
+                        if card_id:
+                            cta_card_ids.add(card_id)
+                        cta_events.append(ac)
+                        if ac.get("cta_id"):
+                            session.analytics.ctas_shown.append(ac["cta_id"])
 
             tool_results.append({
                 "type": "tool_result",

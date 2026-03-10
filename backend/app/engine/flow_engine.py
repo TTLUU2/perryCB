@@ -90,20 +90,43 @@ def get_available_tools(session: SessionState) -> list[str]:
 
 
 def advance_flow(session: SessionState) -> None:
-    """Advance to the next step in the current flow."""
+    """Advance through flow steps until stable (max 5 iterations).
+
+    Allows multi-step fast-tracking when profile data pre-fills slots.
+    E.g., CARD_MATCH with airline_preference pre-filled:
+    CM_CONFIRM_GOAL → CM_COLLECT_SLOTS → CM_RECOMMEND_CARDS in one call.
+
+    The loop only continues past tool-less steps (slot collection, confirmation).
+    It stops when reaching a step with tools (LLM needs to execute them),
+    a terminal step, or if the starting step had tools.
+    """
     module = get_current_flow_module(session)
     step = session.flow_state.current_step
     if not module or not step:
         return
 
-    # Record completed step
-    if step.value not in session.flow_state.steps_completed:
-        session.flow_state.steps_completed.append(step.value)
+    # If the current step has tools, the LLM just did work here —
+    # only advance one step (don't fast-track further).
+    starting_step_has_tools = bool(module.get_available_tools(step))
 
-    next_step = module.determine_next_step(step, session)
-    if next_step != step:
+    max_iterations = 5
+    for _ in range(max_iterations):
+        # Record completed step
+        if step.value not in session.flow_state.steps_completed:
+            session.flow_state.steps_completed.append(step.value)
+
+        next_step = module.determine_next_step(step, session)
+        if next_step == step:
+            break  # Stable — no further advancement
+
         logger.info("Flow transition: %s → %s", step.value, next_step.value)
         session.flow_state.current_step = next_step
+        step = next_step
+
+        # Stop at steps requiring LLM work (tools or terminal),
+        # or after one step if the starting step had tools
+        if starting_step_has_tools or module.get_available_tools(step) or module.is_terminal(step):
+            break
 
 
 def is_flow_terminal(session: SessionState) -> bool:

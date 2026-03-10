@@ -53,8 +53,9 @@ def get_step_instructions(step: FlowStep, session: SessionState) -> str:
         return (
             "You have enough information to recommend cards. "
             "Use the card_lookup tool to find matching cards. "
-            "Present 1-3 cards using the card comparison format: card name, bonus, fee, earn rate, and a one-line fit reason. "
+            "Write a brief summary of the top 3 — mention each card name and why it fits. "
             "If they have a destination, include a Points Pathway calculation. "
+            "DO NOT call cta_lookup — card tiles with apply links are shown automatically. "
             "Ask which card interests them."
         )
 

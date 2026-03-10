@@ -33,6 +33,12 @@ export interface CtaEvent {
     };
     annual_fee: number;
     annual_fee_first_year: number | null;
+    issuer?: string;
+    network?: string;
+    program?: string;
+    earn_rates?: { general: number };
+    key_perk?: string;
+    tags?: string[];
   };
 }
 
@@ -53,6 +59,7 @@ export interface UserProfile {
   destination_regions: string[];
   travel_frequency: 'once_year' | '2_3_year' | 'monthly_plus' | '';
   points_balance: 'starting' | 'under_50k' | '50_100k' | 'over_100k' | '';
+  card_type: 'personal' | 'business_and_personal' | '';
 }
 
 export interface SavedItem extends ChatMessage {

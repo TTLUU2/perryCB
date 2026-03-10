@@ -31,7 +31,7 @@
     ],
     "key_perks": [
       "$400 annual travel credit",
-      "2 Priority Pass lounge visits per year",
+      "2 Amex Lounge visits (Sydney/Melbourne) per year",
       "Complimentary travel insurance",
       "No foreign transaction fees"
     ],
@@ -42,9 +42,9 @@
       "exclusion_period_months": 18,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-explorer/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-explorer-guide/",
     "application_url": "https://www.pointhacks.com.au/go/amex-explorer",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["premium", "no_foreign_fees", "lounge_access", "travel_credit", "flexible"]
   },
@@ -59,9 +59,10 @@
     "signup_bonus": {
       "points": 100000,
       "program": "qantas",
-      "min_spend": 3000,
+      "min_spend": 5000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "60,000 Qantas Points on $5,000 spend in 90 days + 40,000 if you haven't earned Qantas Points with a credit card in 24 months"
     },
     "earn_rates": {
       "general": 1.0,
@@ -86,91 +87,47 @@
       "exclusion_period_months": 12,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/qantas-premier-platinum/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/qantas-premier-platinum-card-guide/",
     "application_url": "https://www.pointhacks.com.au/go/qantas-premier",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "lounge_access"]
   },
   {
-    "card_id": "anz-velocity-black",
+    "card_id": "anz-rewards-black",
     "card_name": "ANZ Rewards Black",
     "issuer": "ANZ",
     "network": "visa",
-    "program": "velocity",
-    "annual_fee": 225,
+    "program": "anz_rewards",
+    "annual_fee": 375,
     "annual_fee_first_year": 0,
     "signup_bonus": {
-      "points": 120000,
-      "program": "velocity",
+      "points": 180000,
+      "program": "anz_rewards",
       "min_spend": 2500,
       "min_spend_period_months": 3,
-      "expiry_date": "2026-05-31"
+      "expiry_date": null,
+      "bonus_structure": "Up to 180,000 ANZ Reward Points + $100 back. ANZ Reward Points convert to Velocity at 2:1 (= 90,000 Velocity Points)"
     },
     "earn_rates": {
-      "general": 1.0,
-      "supermarket": 1.0,
-      "fuel": 1.0,
+      "general": 2.0,
+      "supermarket": 2.0,
+      "fuel": 2.0,
       "travel": 2.0,
-      "foreign_currency": 1.0,
-      "government": 0.5,
-      "insurance": 0.5
+      "foreign_currency": 2.0,
+      "government": 1.0,
+      "insurance": 1.0,
+      "earn_rate_note": "2 ANZ Reward Points per $1 up to $5,000 per statement period, then 1 per $1 above"
     },
     "transfer_partners": [
-      { "program": "velocity", "ratio": "2:1" }
+      { "program": "velocity", "ratio": "2:1" },
+      { "program": "krisflyer", "ratio": "2:1" },
+      { "program": "asia_miles", "ratio": "2:1" }
     ],
     "key_perks": [
       "$0 first-year annual fee",
-      "Complimentary travel insurance",
-      "ANZ Rewards program with Velocity transfer"
-    ],
-    "eligibility": {
-      "min_income": 75000,
-      "min_age": 18,
-      "residency": "AU citizen/PR",
-      "exclusion_period_months": 12,
-      "new_customer_only": true
-    },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/anz-rewards-black/",
-    "application_url": "https://www.pointhacks.com.au/go/anz-rewards-black",
-    "last_updated": "2026-02-27",
-    "is_active": true,
-    "tags": ["velocity", "no_first_year_fee"]
-  },
-  {
-    "card_id": "cba-ultimate-awards",
-    "card_name": "CommBank Ultimate Awards",
-    "issuer": "Commonwealth Bank",
-    "network": "mastercard",
-    "program": "flexible",
-    "annual_fee": 375,
-    "annual_fee_first_year": 375,
-    "signup_bonus": {
-      "points": 120000,
-      "program": "cba_awards",
-      "min_spend": 4000,
-      "min_spend_period_months": 3,
-      "expiry_date": "2026-04-30"
-    },
-    "earn_rates": {
-      "general": 1.5,
-      "supermarket": 3.0,
-      "fuel": 1.5,
-      "travel": 1.5,
-      "foreign_currency": 1.5,
-      "government": 1.0,
-      "insurance": 0.5
-    },
-    "transfer_partners": [
-      { "program": "qantas", "ratio": "4:3" },
-      { "program": "velocity", "ratio": "2:1" },
-      { "program": "krisflyer", "ratio": "4:1" },
-      { "program": "cathay", "ratio": "4:1" }
-    ],
-    "key_perks": [
-      "3x points at supermarkets",
-      "Transfer to multiple airline partners",
-      "2 international lounge visits",
+      "2 ANZ Reward Points per $1 on eligible purchases (up to $5k/statement)",
+      "Transfer to Velocity, KrisFlyer, or Asia Miles",
       "Complimentary travel insurance"
     ],
     "eligibility": {
@@ -180,26 +137,74 @@
       "exclusion_period_months": 12,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/commbank-ultimate-awards/",
-    "application_url": "https://www.pointhacks.com.au/go/cba-ultimate-awards",
-    "last_updated": "2026-02-27",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/anz-rewards-black-guide/",
+    "application_url": "https://www.pointhacks.com.au/go/anz-rewards-black",
+    "last_updated": "2026-03-10",
     "is_active": true,
-    "tags": ["premium", "supermarket_bonus", "lounge_access", "flexible"]
+    "tags": ["flexible", "no_first_year_fee", "high_earn"]
+  },
+  {
+    "card_id": "cba-ultimate-awards",
+    "card_name": "CommBank Ultimate Awards",
+    "issuer": "Commonwealth Bank",
+    "network": "mastercard",
+    "program": "cba_awards",
+    "annual_fee": 420,
+    "annual_fee_first_year": 420,
+    "signup_bonus": {
+      "points": 120000,
+      "program": "cba_awards",
+      "min_spend": 4000,
+      "min_spend_period_months": 3,
+      "expiry_date": "2026-04-30"
+    },
+    "earn_rates": {
+      "general": 1.0,
+      "supermarket": 2.0,
+      "fuel": 2.0,
+      "travel": 1.0,
+      "foreign_currency": 3.0,
+      "government": 1.0,
+      "insurance": 0.5,
+      "earn_rate_note": "Up to $10,000 per statement period, then 0.5 pts/$1 above. Fee is $35/month waivable with $4,000 spend."
+    },
+    "transfer_partners": [
+      { "program": "qantas", "ratio": "requires $90/yr Qantas opt-in" }
+    ],
+    "key_perks": [
+      "3x points on international transactions",
+      "2x points at supermarkets, department stores, petrol, dining",
+      "No international transaction fees",
+      "Opt-in for Qantas Points earning ($90/yr)"
+    ],
+    "eligibility": {
+      "min_income": 75000,
+      "min_age": 18,
+      "residency": "AU citizen/PR",
+      "exclusion_period_months": 12,
+      "new_customer_only": true
+    },
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/commbank-ultimate-awards-card-guide/",
+    "application_url": "https://www.pointhacks.com.au/go/cba-ultimate-awards",
+    "last_updated": "2026-03-10",
+    "is_active": true,
+    "tags": ["supermarket_bonus", "no_foreign_fees", "international_bonus"]
   },
   {
     "card_id": "nab-velocity-rewards",
-    "card_name": "NAB Velocity Rewards Signature",
+    "card_name": "NAB Rewards Signature with Velocity",
     "issuer": "NAB",
     "network": "visa",
     "program": "velocity",
     "annual_fee": 195,
     "annual_fee_first_year": 0,
     "signup_bonus": {
-      "points": 60000,
+      "points": 80000,
       "program": "velocity",
-      "min_spend": 2000,
-      "min_spend_period_months": 2,
-      "expiry_date": null
+      "min_spend": 4000,
+      "min_spend_period_months": 3,
+      "expiry_date": null,
+      "bonus_structure": "60,000 bonus Velocity Points (from 120,000 NAB Rewards Points at 2:1) on $4,000 spend in 90 days + 20,000 bonus Velocity Points (from 40,000 NAB Rewards Points) when card kept 12+ months"
     },
     "earn_rates": {
       "general": 1.25,
@@ -213,7 +218,7 @@
     "transfer_partners": [],
     "key_perks": [
       "$0 first-year annual fee",
-      "Earn Velocity Points directly",
+      "Earn Velocity Points via NAB Rewards auto-conversion",
       "Complimentary domestic travel insurance",
       "No Velocity transfer needed"
     ],
@@ -224,55 +229,56 @@
       "exclusion_period_months": null,
       "new_customer_only": false
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/nab-velocity-rewards-signature/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/nab-rewards-signature-velocity-guide/",
     "application_url": "https://www.pointhacks.com.au/go/nab-velocity-rewards-sig",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["velocity_direct", "low_fee", "no_first_year_fee", "easy_approval"]
   },
   {
-    "card_id": "westpac-altitude-black",
-    "card_name": "Westpac Altitude Black",
+    "card_id": "westpac-altitude-qantas-black-bundle",
+    "card_name": "Westpac Altitude Qantas Black",
     "issuer": "Westpac",
     "network": "mastercard",
     "program": "qantas",
-    "annual_fee": 250,
-    "annual_fee_first_year": 250,
+    "annual_fee": 370,
+    "annual_fee_first_year": 370,
     "signup_bonus": {
-      "points": 75000,
+      "points": 150000,
       "program": "qantas",
-      "min_spend": 3000,
-      "min_spend_period_months": 3,
-      "expiry_date": "2026-07-31"
+      "min_spend": 6000,
+      "min_spend_period_months": 4,
+      "expiry_date": null,
+      "bonus_structure": "90,000 Qantas Points on $6,000 spend in 120 days + 60,000 Qantas Points on $6,000 spend in year 2"
     },
     "earn_rates": {
-      "general": 1.0,
-      "supermarket": 1.0,
-      "fuel": 1.0,
-      "travel": 1.5,
+      "general": 0.75,
+      "supermarket": 0.75,
+      "fuel": 0.75,
+      "travel": 1.2,
       "foreign_currency": 1.0,
       "government": 0.5,
       "insurance": 0.5
     },
     "transfer_partners": [],
     "key_perks": [
-      "Earn Qantas Points directly on every purchase",
-      "1.5x points on travel bookings",
-      "Complimentary overseas travel insurance",
-      "0% foreign transaction fee on purchases"
+      "Up to 150,000 Qantas Points (90k + 60k year 2)",
+      "No foreign transaction fees",
+      "2 Qantas Club lounge invitations per year",
+      "Complimentary international travel insurance"
     ],
     "eligibility": {
-      "min_income": 60000,
+      "min_income": 80000,
       "min_age": 18,
       "residency": "AU citizen/PR",
       "exclusion_period_months": 12,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/westpac-altitude-black/",
-    "application_url": "https://www.pointhacks.com.au/go/westpac-altitude-black",
-    "last_updated": "2026-02-27",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/westpac-altitude-qantas-black-guide/",
+    "application_url": "https://www.pointhacks.com.au/go/westpac-altitude-qantas-black",
+    "last_updated": "2026-03-10",
     "is_active": true,
-    "tags": ["qantas_direct", "no_foreign_fees", "travel_bonus"]
+    "tags": ["qantas_direct", "premium", "no_foreign_fees", "lounge_access"]
   },
   {
     "card_id": "anz-frequent-flyer-black",
@@ -280,14 +286,15 @@
     "issuer": "ANZ",
     "network": "visa",
     "program": "qantas",
-    "annual_fee": 295,
-    "annual_fee_first_year": 295,
+    "annual_fee": 425,
+    "annual_fee_first_year": 425,
     "signup_bonus": {
-      "points": 70000,
+      "points": 130000,
       "program": "qantas",
-      "min_spend": 2500,
+      "min_spend": 5000,
       "min_spend_period_months": 3,
-      "expiry_date": "2026-06-30"
+      "expiry_date": null,
+      "bonus_structure": "90,000 Qantas Points + $200 back on $5,000 spend in 3 months + 40,000 Qantas Points when card kept 12+ months"
     },
     "earn_rates": {
       "general": 1.0,
@@ -300,7 +307,7 @@
     },
     "transfer_partners": [],
     "key_perks": [
-      "Earn Qantas Points directly",
+      "Up to 130,000 bonus Qantas Points + $200 back",
       "2x points on travel and entertainment",
       "Complimentary international travel insurance",
       "2 Qantas domestic lounge invitations per year"
@@ -312,9 +319,9 @@
       "exclusion_period_months": 12,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/anz-frequent-flyer-black/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/anz-frequent-flyer-black-guide/",
     "application_url": "https://www.pointhacks.com.au/go/anz-ff-black",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "lounge_access", "travel_bonus"]
   },
@@ -327,11 +334,12 @@
     "annual_fee": 440,
     "annual_fee_first_year": 440,
     "signup_bonus": {
-      "points": 70000,
+      "points": 100000,
       "program": "velocity",
       "min_spend": 5000,
       "min_spend_period_months": 3,
-      "expiry_date": "2026-04-30"
+      "expiry_date": "2026-04-30",
+      "bonus_structure": "70,000 Velocity Points on $5,000 spend in 3 months + 30,000 Velocity Points in year 2"
     },
     "earn_rates": {
       "general": 1.25,
@@ -345,8 +353,9 @@
     "transfer_partners": [],
     "key_perks": [
       "Earn Velocity Points directly",
-      "2.5x points on travel purchases",
-      "2 Virgin Australia domestic lounge passes",
+      "Complimentary domestic return Virgin Australia flight",
+      "Virgin Australia domestic lounge access when flying VA",
+      "2 VA guest lounge passes per year",
       "Complimentary travel insurance and purchase protection"
     ],
     "eligibility": {
@@ -356,9 +365,9 @@
       "exclusion_period_months": 18,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/amex-velocity-platinum/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-velocity-platinum-guide/",
     "application_url": "https://www.pointhacks.com.au/go/amex-velocity-platinum",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["velocity_direct", "premium", "lounge_access", "travel_bonus"]
   },
@@ -367,15 +376,16 @@
     "card_name": "Citi Prestige Credit Card",
     "issuer": "Citibank",
     "network": "visa",
-    "program": "flexible",
+    "program": "citi_rewards",
     "annual_fee": 350,
     "annual_fee_first_year": 175,
     "signup_bonus": {
-      "points": 100000,
+      "points": 250000,
       "program": "citi_rewards",
-      "min_spend": 4000,
+      "min_spend": 10000,
       "min_spend_period_months": 3,
-      "expiry_date": "2026-08-31"
+      "expiry_date": null,
+      "bonus_structure": "250,000 Citi reward Points on $10,000 spend in 90 days. Equivalent to 125,000 Velocity Points or 100,000 KrisFlyer miles when transferred."
     },
     "earn_rates": {
       "general": 1.5,
@@ -389,12 +399,12 @@
     "transfer_partners": [
       { "program": "qantas", "ratio": "4:3" },
       { "program": "velocity", "ratio": "2:1" },
-      { "program": "krisflyer", "ratio": "3:1" },
-      { "program": "cathay", "ratio": "3:1" }
+      { "program": "krisflyer", "ratio": "2.5:1" },
+      { "program": "cathay", "ratio": "2.5:1" }
     ],
     "key_perks": [
       "Half-price annual fee in the first year",
-      "Transfer to multiple airline partners",
+      "250,000 bonus Citi reward Points (= 125,000 Velocity Points)",
       "Unlimited Priority Pass lounge visits",
       "Complimentary international travel insurance"
     ],
@@ -405,9 +415,9 @@
       "exclusion_period_months": 12,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/citi-prestige/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/citi-prestige-card-guide/",
     "application_url": "https://www.pointhacks.com.au/go/citi-prestige",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["premium", "lounge_access", "flexible", "half_price_first_year"]
   },
@@ -416,30 +426,34 @@
     "card_name": "HSBC Star Alliance Credit Card",
     "issuer": "HSBC",
     "network": "visa",
-    "program": "krisflyer",
-    "annual_fee": 199,
+    "program": "star_alliance_rewards",
+    "annual_fee": 499,
     "annual_fee_first_year": 0,
     "signup_bonus": {
       "points": 50000,
-      "program": "krisflyer",
-      "min_spend": 2000,
+      "program": "star_alliance_rewards",
+      "min_spend": 4000,
       "min_spend_period_months": 3,
-      "expiry_date": "2026-09-30"
+      "expiry_date": null,
+      "bonus_structure": "Earn Star Alliance Gold status fast-track on $4,000 spend in 90 days. Bonus points offer may vary."
     },
     "earn_rates": {
       "general": 1.0,
       "supermarket": 1.0,
       "fuel": 1.0,
-      "travel": 2.0,
-      "foreign_currency": 2.0,
+      "travel": 1.0,
+      "foreign_currency": 1.0,
       "government": 0.5,
-      "insurance": 0.5
+      "insurance": 0.5,
+      "earn_rate_note": "1 Star Alliance Point per $1 up to $3,000 per statement period, then 0.5 per $1 above"
     },
-    "transfer_partners": [],
+    "transfer_partners": [
+      { "program": "krisflyer", "ratio": "1:1" }
+    ],
     "key_perks": [
       "$0 first-year annual fee",
-      "Earn KrisFlyer miles directly on every purchase",
-      "No foreign transaction fees",
+      "Fast-track to Star Alliance Gold status",
+      "1 Star Alliance Point per $1 (up to $3k/statement)",
       "Complimentary travel insurance"
     ],
     "eligibility": {
@@ -449,11 +463,11 @@
       "exclusion_period_months": 12,
       "new_customer_only": true
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/hsbc-star-alliance/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/hsbc-star-alliance-card-guide/",
     "application_url": "https://www.pointhacks.com.au/go/hsbc-star-alliance",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
-    "tags": ["krisflyer_direct", "no_foreign_fees", "no_first_year_fee", "low_fee", "easy_approval"]
+    "tags": ["krisflyer_direct", "no_first_year_fee", "star_alliance", "easy_approval"]
   },
   {
     "card_id": "amex-platinum",
@@ -488,6 +502,7 @@
     "key_perks": [
       "$450 annual travel credit",
       "Unlimited Priority Pass lounge access",
+      "$400 Global Dining Credit",
       "Fine Hotels & Resorts benefits",
       "Complimentary Accor Plus membership",
       "Complimentary travel insurance"
@@ -501,7 +516,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-platinum-guide/",
     "application_url": "https://www.pointhacks.com.au/go/amex-platinum",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["ultra_premium", "lounge_access", "travel_credit", "flexible", "high_earn"]
   },
@@ -551,7 +566,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-platinum-business-guide/",
     "application_url": "https://www.pointhacks.com.au/go/amex-platinum-business",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["business", "ultra_premium", "lounge_access", "travel_credit", "flexible", "highest_bonus"]
   },
@@ -578,12 +593,13 @@
       "travel": 2.25,
       "foreign_currency": 1.25,
       "government": 0.5,
-      "insurance": 0.5
+      "insurance": 0.5,
+      "earn_rate_note": "Caps to 1.0 pts/$1 after 100,000 pts/year"
     },
     "transfer_partners": [],
     "key_perks": [
       "Up to 100,000 bonus Qantas Points (70k + 30k in year 2)",
-      "Uncapped earn rate: 1.25 pts/$1 general, 2.25 pts/$1 on Qantas (caps to 1.0 after 100k pts/year)",
+      "Uncapped earn rate: 1.25 pts/$1 general, 2.25 pts/$1 on Qantas",
       "$450 annual Qantas Travel Credit",
       "2 Qantas domestic lounge passes",
       "Complimentary international travel insurance",
@@ -598,7 +614,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/qantas-american-express-ultimate-guide/",
     "application_url": "https://www.pointhacks.com.au/go/qantas-amex-ultimate",
-    "last_updated": "2026-03-02",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "premium", "lounge_access", "travel_credit", "high_earn"]
   },
@@ -615,7 +631,8 @@
       "program": "qantas",
       "min_spend": 5000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "100,000 Qantas Points + $250 cashback on $5,000 spend in 90 days + 30,000 Qantas Points when card kept 12+ months"
     },
     "earn_rates": {
       "general": 1.0,
@@ -624,7 +641,8 @@
       "travel": 1.0,
       "foreign_currency": 1.0,
       "government": 0.5,
-      "insurance": 0.5
+      "insurance": 0.5,
+      "earn_rate_note": "1 Qantas Point per $1 up to $5,000/month, then 0.5 per $1 from $5,001-$20,000"
     },
     "transfer_partners": [],
     "key_perks": [
@@ -643,7 +661,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/nab-qantas-rewards-signature-guide/",
     "application_url": "https://www.pointhacks.com.au/go/nab-qantas-sig",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "no_foreign_fees", "cashback"]
   },
@@ -656,11 +674,12 @@
     "annual_fee": 250,
     "annual_fee_first_year": 250,
     "signup_bonus": {
-      "points": 70000,
+      "points": 100000,
       "program": "qantas",
       "min_spend": 4000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "70,000 Qantas Points on $4,000 spend in 90 days + 30,000 Qantas Points on $4,000 spend in year 2"
     },
     "earn_rates": {
       "general": 0.5,
@@ -687,7 +706,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/westpac-altitude-qantas-platinum-guide/",
     "application_url": "https://www.pointhacks.com.au/go/westpac-altitude-qantas-plat",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "mid_range"]
   },
@@ -718,6 +737,7 @@
     "transfer_partners": [],
     "key_perks": [
       "Low $95 annual fee",
+      "$50 Virgin Australia Statement Credit each year",
       "Earn Velocity Points directly",
       "1.75 pts/$1 on Virgin Australia purchases",
       "Complimentary domestic travel insurance"
@@ -731,7 +751,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-velocity-escape-plus-guide/",
     "application_url": "https://www.pointhacks.com.au/go/amex-velocity-escape-plus",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["velocity_direct", "low_fee", "entry_level", "easy_approval"]
   },
@@ -775,7 +795,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/american-express-velocity-business-guide/",
     "application_url": "https://www.pointhacks.com.au/go/amex-velocity-business",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["business", "velocity_direct", "high_bonus"]
   },
@@ -792,7 +812,8 @@
       "program": "qantas",
       "min_spend": 3000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "40,000 Qantas Points on $3,000 spend in 90 days + 10,000 Qantas Points when card kept 15+ months"
     },
     "earn_rates": {
       "general": 0.75,
@@ -801,7 +822,8 @@
       "travel": 0.75,
       "foreign_currency": 0.75,
       "government": 0.5,
-      "insurance": 0.5
+      "insurance": 0.5,
+      "earn_rate_note": "0.75 Qantas Points per $1 up to $2,500/month, then 0.30 per $1 above"
     },
     "transfer_partners": [],
     "key_perks": [
@@ -819,7 +841,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/bankwest-qantas-platinum-mastercard-guide/",
     "application_url": "https://www.pointhacks.com.au/go/bankwest-qantas-plat",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "low_fee", "no_foreign_fees", "easy_approval"]
   },
@@ -845,14 +867,15 @@
       "travel": 2.0,
       "foreign_currency": 1.0,
       "government": 0.5,
-      "insurance": 0.5
+      "insurance": 0.5,
+      "earn_rate_note": "1 Qantas Point per $1 up to $2,500/month soft cap, then 0.5 per $1 up to $200,000/year"
     },
     "transfer_partners": [],
     "key_perks": [
       "2 Qantas Points per $1 on Qantas purchases",
       "1 Qantas Point per $1 on general (up to $2,500/month cap)",
       "No signup bonus but strong ongoing earn",
-      "Good for consistent Qantas earners"
+      "Complimentary international travel insurance"
     ],
     "eligibility": {
       "min_income": 40000,
@@ -861,9 +884,9 @@
       "exclusion_period_months": 0,
       "new_customer_only": false
     },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/qudos-bank-platinum-visa-guide/",
+    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/qudos-bank-visa-platinum-guide/",
     "application_url": "https://www.pointhacks.com.au/go/qudos-bank-plat",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "ongoing_earn", "no_exclusion"]
   },
@@ -878,9 +901,10 @@
     "signup_bonus": {
       "points": 100000,
       "program": "qantas",
-      "min_spend": 5000,
+      "min_spend": 6000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "70,000 Qantas Points on $6,000 spend in 3 months + 30,000 Qantas Points after 12 months"
     },
     "earn_rates": {
       "general": 0.5,
@@ -889,7 +913,8 @@
       "travel": 1.0,
       "foreign_currency": 1.0,
       "government": 0.5,
-      "insurance": 0.5
+      "insurance": 0.5,
+      "earn_rate_note": "1 Qantas Point per $1 on eligible online and overseas spend, 0.5 per $1 elsewhere"
     },
     "transfer_partners": [],
     "key_perks": [
@@ -907,7 +932,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/citi-premier-qantas-card-guide/",
     "application_url": "https://www.pointhacks.com.au/go/citi-premier-qantas",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["qantas_direct", "lounge_access"]
   },
@@ -917,14 +942,15 @@
     "issuer": "NAB",
     "network": "visa",
     "program": "velocity",
-    "annual_fee": 295,
-    "annual_fee_first_year": 295,
+    "annual_fee": 195,
+    "annual_fee_first_year": 195,
     "signup_bonus": {
       "points": 90000,
       "program": "velocity",
       "min_spend": 4000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "70,000 Velocity Points (from 140,000 NAB Rewards Points at 2:1) on $4,000 spend in 90 days + 20,000 Velocity Points (from 40,000 NAB Rewards Points) when card kept 12+ months"
     },
     "earn_rates": {
       "general": 1.0,
@@ -938,9 +964,9 @@
     "transfer_partners": [],
     "key_perks": [
       "Up to 90,000 bonus Velocity Points",
-      "Earn Velocity Points directly",
+      "Earn Velocity Points via NAB Rewards auto-conversion",
       "No foreign transaction fees",
-      "Complimentary travel insurance"
+      "Complimentary travel insurance (removed from 15 May 2026)"
     ],
     "eligibility": {
       "min_income": 65000,
@@ -951,53 +977,9 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/nab-rewards-platinum-velocity-guide/",
     "application_url": "https://www.pointhacks.com.au/go/nab-rewards-plat-velocity",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["velocity_direct", "no_foreign_fees"]
-  },
-  {
-    "card_id": "westpac-altitude-qantas-black",
-    "card_name": "Westpac Altitude Qantas Black",
-    "issuer": "Westpac",
-    "network": "mastercard",
-    "program": "qantas",
-    "annual_fee": 350,
-    "annual_fee_first_year": 350,
-    "signup_bonus": {
-      "points": 100000,
-      "program": "qantas",
-      "min_spend": 6000,
-      "min_spend_period_months": 3,
-      "expiry_date": null
-    },
-    "earn_rates": {
-      "general": 0.75,
-      "supermarket": 0.75,
-      "fuel": 0.75,
-      "travel": 1.0,
-      "foreign_currency": 1.0,
-      "government": 0.5,
-      "insurance": 0.5
-    },
-    "transfer_partners": [],
-    "key_perks": [
-      "Up to 150,000 Qantas Points (100k + 50k year 2)",
-      "No foreign transaction fees",
-      "2 Priority Pass lounge visits per year",
-      "Complimentary international travel insurance"
-    ],
-    "eligibility": {
-      "min_income": 80000,
-      "min_age": 18,
-      "residency": "AU citizen/PR",
-      "exclusion_period_months": 12,
-      "new_customer_only": true
-    },
-    "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/westpac-altitude-qantas-black-guide/",
-    "application_url": "https://www.pointhacks.com.au/go/westpac-altitude-qantas-black",
-    "last_updated": "2026-02-27",
-    "is_active": true,
-    "tags": ["qantas_direct", "premium", "no_foreign_fees", "lounge_access"]
   },
   {
     "card_id": "nab-qantas-business-signature",
@@ -1005,12 +987,12 @@
     "issuer": "NAB",
     "network": "visa",
     "program": "qantas",
-    "annual_fee": 420,
-    "annual_fee_first_year": 320,
+    "annual_fee": 295,
+    "annual_fee_first_year": 295,
     "signup_bonus": {
       "points": 150000,
       "program": "qantas",
-      "min_spend": 6000,
+      "min_spend": 10000,
       "min_spend_period_months": 3,
       "expiry_date": null
     },
@@ -1026,7 +1008,7 @@
     "transfer_partners": [],
     "key_perks": [
       "150,000 bonus Qantas Points for business",
-      "$100 off first-year fee for NAB customers",
+      "Lower annual fee than consumer Signature card",
       "No foreign transaction fees",
       "Complimentary international travel insurance",
       "Employee cards available"
@@ -1040,7 +1022,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/nab-qantas-business-signature-guide/",
     "application_url": "https://www.pointhacks.com.au/go/nab-qantas-biz-sig",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["business", "qantas_direct", "no_foreign_fees", "high_bonus"]
   },
@@ -1053,11 +1035,12 @@
     "annual_fee": 250,
     "annual_fee_first_year": 250,
     "signup_bonus": {
-      "points": 70000,
+      "points": 100000,
       "program": "velocity",
       "min_spend": 4000,
       "min_spend_period_months": 3,
-      "expiry_date": null
+      "expiry_date": null,
+      "bonus_structure": "70,000 Velocity Points on $4,000 spend in 90 days + 30,000 Velocity Points on $4,000 spend in year 2"
     },
     "earn_rates": {
       "general": 0.66,
@@ -1084,7 +1067,7 @@
     },
     "point_hacks_review_url": "https://www.pointhacks.com.au/credit-cards/westpac-altitude-velocity-platinum-guide/",
     "application_url": "https://www.pointhacks.com.au/go/westpac-altitude-velocity-plat",
-    "last_updated": "2026-02-27",
+    "last_updated": "2026-03-10",
     "is_active": true,
     "tags": ["velocity_direct", "no_foreign_fees", "mid_range"]
   }

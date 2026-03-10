@@ -21,6 +21,8 @@ CARD_NBAS = [
     {"label": "Browse all credit card offers", "action": "browse_cards", "type": "nba", "url": "https://www.pointhacks.com.au/credit-cards/"},
 ]
 
+SEAT_ALERT_NBA = {"label": "Subscribe to reward seat alerts", "action": "seat_alerts", "type": "nba", "url": "https://seat-alerts.pointhacks.com.au/"}
+
 PROGRAM_CARD_GUIDES = {
     "qantas": {"label": "Best Qantas cards", "action": "qantas_cards", "type": "nba", "url": "https://www.pointhacks.com.au/credit-cards/qantas-frequent-flyer-cards/"},
     "velocity": {"label": "Best Velocity cards", "action": "velocity_cards", "type": "nba", "url": "https://www.pointhacks.com.au/credit-cards/velocity-frequent-flyer-cards/"},
@@ -32,8 +34,23 @@ FALLBACK_SUGGESTIONS = [
     {"label": "Help me choose a card", "action": "choose_card", "type": "query"},
     {"label": "Browse all credit cards", "action": "browse_cards", "type": "nba", "url": "https://www.pointhacks.com.au/credit-cards/"},
     {"label": "How do points work?", "action": "how_points_work", "type": "query"},
-    {"label": "Find reward seats", "action": "find_seats", "type": "query"},
+    SEAT_ALERT_NBA,
 ]
+
+
+def _program_card_suggestion(program: str | None) -> dict | None:
+    """Return a program-specific 'Show me top X cards' suggestion, or None."""
+    if not program:
+        return None
+    label_map = {
+        "qantas": "Show me top Qantas cards",
+        "velocity": "Show me top Velocity cards",
+        "krisflyer": "Show me top KrisFlyer cards",
+    }
+    label = label_map.get(program.lower())
+    if label:
+        return {"label": label, "action": "choose_card", "type": "query"}
+    return None
 
 
 def generate_suggestions(session: SessionState) -> list[dict]:
@@ -45,10 +62,12 @@ def generate_suggestions(session: SessionState) -> list[dict]:
 
     # --- Pre-intent (greeting / clarification) ---
     if intent is None or step == FlowStep.CLARIFY:
+        # Use program-specific card suggestion if profile pre-filled airline_preference
+        card_suggestion = _program_card_suggestion(slots.airline_preference)
         return [
-            {"label": "Help me choose a credit card", "action": "choose_card", "type": "query"},
+            card_suggestion or {"label": "Help me choose a credit card", "action": "choose_card", "type": "query"},
             {"label": "I'm new to points", "action": "new_to_points", "type": "query"},
-            {"label": "Find reward seats", "action": "find_seats", "type": "query"},
+            SEAT_ALERT_NBA,
             {"label": "Browse all credit cards", "action": "browse_cards", "type": "nba", "url": "https://www.pointhacks.com.au/credit-cards/"},
         ]
 
@@ -81,7 +100,7 @@ def generate_suggestions(session: SessionState) -> list[dict]:
             suggestions.append(CARD_NBAS[1])  # Compare cards
 
         elif step in (FlowStep.CM_PRESENT_CTA, FlowStep.CM_COMPLETE):
-            suggestions.append({"label": "Set up a Seat Alert", "action": "seat_alert", "type": "query"})
+            suggestions.append(SEAT_ALERT_NBA)
             suggestions.append({"label": "Compare more cards", "action": "compare_cards", "type": "nba", "url": "https://www.pointhacks.com.au/tools-calculators/credit-cards-master-table/"})
             suggestions.append({"label": "Card Value Calculator", "action": "card_calculator", "type": "nba", "url": "https://www.pointhacks.com.au/card-value-calculator-intro/"})
 
@@ -119,13 +138,17 @@ def generate_suggestions(session: SessionState) -> list[dict]:
             suggestions.append(CARD_NBAS[2])  # Card Value Calculator
 
         elif step in (FlowStep.LN_EMAIL_CTA, FlowStep.LN_BRIDGE, FlowStep.LN_COMPLETE):
-            suggestions.append({"label": "Help me choose a card", "action": "choose_card", "type": "query"})
-            suggestions.append({"label": "Find reward seats", "action": "find_seats", "type": "query"})
+            # Use program-specific suggestion if program is known
+            card_chip = _program_card_suggestion(slots.program_interest) or _program_card_suggestion(slots.airline_preference)
+            suggestions.append(card_chip or {"label": "Help me choose a card", "action": "choose_card", "type": "query"})
+            suggestions.append(SEAT_ALERT_NBA)
             suggestions.append(CARD_NBAS[3])  # Browse all cards
 
     # --- ARTICLE_FOLLOWUP flow ---
     elif intent == Intent.ARTICLE_FOLLOWUP:
-        suggestions.append({"label": "Help me choose a card", "action": "choose_card", "type": "query"})
+        # Use program-specific suggestion if airline_preference is known
+        card_chip = _program_card_suggestion(slots.airline_preference)
+        suggestions.append(card_chip or {"label": "Help me choose a card", "action": "choose_card", "type": "query"})
         suggestions.append({"label": "Tell me more about this", "action": "more_info", "type": "query"})
         if slots.airline_preference and slots.airline_preference in PROGRAM_CARD_GUIDES:
             suggestions.append(PROGRAM_CARD_GUIDES[slots.airline_preference])

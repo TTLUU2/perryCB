@@ -18,6 +18,45 @@ def _load_ctas() -> list[dict[str, Any]]:
     return _ctas
 
 
+def build_card_recommendation_ctas(
+    cards: list[dict[str, Any]], max_cards: int = 3
+) -> list[dict[str, Any]]:
+    """Build enriched CTA objects from card_lookup results."""
+    ctas: list[dict[str, Any]] = []
+    for card in cards[:max_cards]:
+        card_id = card.get("card_id", "")
+        bonus = card.get("signup_bonus", {})
+        key_perks = card.get("key_perks", [])
+        ctas.append({
+            "cta_id": f"card-apply-{card_id}",
+            "cta_type": "card_application",
+            "label": f"View {card.get('card_name', '')} Review & Apply",
+            "url": card.get("application_url", ""),
+            "review_url": card.get("point_hacks_review_url", ""),
+            "card": {
+                "card_id": card_id,
+                "card_name": card.get("card_name", ""),
+                "signup_bonus": {
+                    "points": bonus.get("points", 0),
+                    "program": bonus.get("program", ""),
+                    "min_spend": bonus.get("min_spend", 0),
+                    "min_spend_period_months": bonus.get("min_spend_period_months", 0),
+                },
+                "annual_fee": card.get("annual_fee", 0),
+                "annual_fee_first_year": card.get("annual_fee_first_year"),
+                "issuer": card.get("issuer", ""),
+                "network": card.get("network", ""),
+                "program": card.get("program", ""),
+                "earn_rates": {
+                    "general": card.get("earn_rates", {}).get("general", 0),
+                },
+                "key_perk": key_perks[0] if key_perks else None,
+                "tags": card.get("tags", []),
+            },
+        })
+    return ctas
+
+
 def cta_lookup(
     cta_type: str,
     card_id: str | None = None,
