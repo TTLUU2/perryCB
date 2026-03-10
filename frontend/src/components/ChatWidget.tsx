@@ -12,14 +12,19 @@ import { Suggestion } from '../types';
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Lock body scroll on mobile when chat is open
+  // Lock body scroll when chat is open — prevents landing page showing behind
   useEffect(() => {
     if (isOpen) {
+      // Store scroll position before locking
+      const scrollY = window.scrollY;
       document.body.classList.add('pg-chat-open');
-    } else {
-      document.body.classList.remove('pg-chat-open');
+      document.body.style.top = `-${scrollY}px`;
+      return () => {
+        document.body.classList.remove('pg-chat-open');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      };
     }
-    return () => document.body.classList.remove('pg-chat-open');
   }, [isOpen]);
   const pageContext = usePageContext();
   const { profile, updateField, hasAnyPreference } = useUserProfile();

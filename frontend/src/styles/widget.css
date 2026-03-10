@@ -97,12 +97,15 @@
     border-radius: 0;
   }
 
+  /* Prevent iOS auto-zoom on input focus (requires >= 16px) */
+  .pg-widget-container--open .pg-input-bar textarea {
+    font-size: 16px;
+  }
+
   /* Lock body scroll when chat is open */
   body.pg-chat-open {
     overflow: hidden !important;
-    position: fixed !important;
-    width: 100% !important;
-    height: 100% !important;
+    touch-action: none;
   }
 }
 
