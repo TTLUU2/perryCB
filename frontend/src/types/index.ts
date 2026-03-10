@@ -39,8 +39,9 @@ export interface CtaEvent {
 export interface Suggestion {
   label: string;
   action: string;
-  type: 'query' | 'nba';
+  type: 'query' | 'nba' | 'lesson';
   url?: string;
+  lessonId?: string;
 }
 
 export interface UserProfile {
@@ -49,10 +50,14 @@ export interface UserProfile {
   travel_goal: 'business' | 'economy' | 'flexible' | '';
   max_annual_fee: 'no_fee' | 'under_200' | 'under_500' | 'any' | '';
   home_city: string;
+  destination_regions: string[];
+  travel_frequency: 'once_year' | '2_3_year' | 'monthly_plus' | '';
+  points_balance: 'starting' | 'under_50k' | '50_100k' | 'over_100k' | '';
 }
 
 export interface SavedItem extends ChatMessage {
   savedAt: string;
+  notes?: string;
 }
 
 export interface SSEEvent {
@@ -62,4 +67,30 @@ export interface SSEEvent {
   greeting?: boolean;
   error?: boolean;
   suggestions?: Suggestion[];
+}
+
+export interface LearningLesson {
+  id: string;
+  title: string;
+  durationMinutes: number;
+  content: string; // markdown
+  askPerryPrompt?: string;
+  askPerryPrompts?: string[];
+}
+
+export interface LearningModule {
+  id: string;
+  title: string;
+  description: string;
+  color: 'blue' | 'orange' | 'green';
+  lessons: LearningLesson[];
+}
+
+export interface LessonProgress {
+  lessonId: string;
+  completedAt: string;
+}
+
+export interface LearningProgress {
+  completedLessons: LessonProgress[];
 }

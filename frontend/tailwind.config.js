@@ -4,9 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'ph-blue': '#1a56db',
-        'ph-blue-dark': '#1640a0',
-        'ph-blue-light': '#e8effd',
+        'ph-blue': '#374B6A',
+        'ph-blue-dark': '#2D3E54',
+        'ph-blue-light': '#EEF0F4',
+        'ph-teal': '#56C4BD',
+        'ph-pink': '#D94FA0',
         'ph-orange': '#f97316',
         'ph-gray': {
           50: '#f9fafb',

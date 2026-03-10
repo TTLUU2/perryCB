@@ -28,8 +28,8 @@ function RadioGroup({
             key={opt.value}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs cursor-pointer border transition-all ${
               value === opt.value
-                ? 'bg-ph-blue text-white border-ph-blue'
-                : 'bg-white text-ph-gray-700 border-ph-gray-300 hover:border-ph-blue'
+                ? 'bg-[#3A9E98] text-white border-[#3A9E98]'
+                : 'bg-white text-ph-gray-700 border-ph-gray-300 hover:border-ph-teal'
             }`}
           >
             <input
@@ -74,7 +74,7 @@ export function UserProfile({ profile, onUpdate, onBack }: UserProfileProps) {
           value={profile.name}
           onChange={(e) => onUpdate('name', e.target.value)}
           placeholder="e.g. Alex"
-          className="w-full px-3 py-2 text-sm border border-ph-gray-300 rounded-lg focus:outline-none focus:border-ph-blue focus:ring-1 focus:ring-ph-blue/20"
+          className="w-full px-3 py-2 text-sm border border-ph-gray-300 rounded-lg focus:outline-none focus:border-ph-pink focus:ring-1 focus:ring-ph-pink/20"
         />
       </div>
 
@@ -111,7 +111,7 @@ export function UserProfile({ profile, onUpdate, onBack }: UserProfileProps) {
         <select
           value={profile.max_annual_fee}
           onChange={(e) => onUpdate('max_annual_fee', e.target.value as UserProfileType['max_annual_fee'])}
-          className="w-full px-3 py-2 text-sm border border-ph-gray-300 rounded-lg focus:outline-none focus:border-ph-blue focus:ring-1 focus:ring-ph-blue/20 bg-white"
+          className="w-full px-3 py-2 text-sm border border-ph-gray-300 rounded-lg focus:outline-none focus:border-ph-pink focus:ring-1 focus:ring-ph-pink/20 bg-white"
         >
           <option value="">No preference</option>
           <option value="no_fee">No fee ($0)</option>
@@ -129,9 +129,75 @@ export function UserProfile({ profile, onUpdate, onBack }: UserProfileProps) {
           value={profile.home_city}
           onChange={(e) => onUpdate('home_city', e.target.value)}
           placeholder="Sydney"
-          className="w-full px-3 py-2 text-sm border border-ph-gray-300 rounded-lg focus:outline-none focus:border-ph-blue focus:ring-1 focus:ring-ph-blue/20"
+          className="w-full px-3 py-2 text-sm border border-ph-gray-300 rounded-lg focus:outline-none focus:border-ph-pink focus:ring-1 focus:ring-ph-pink/20"
         />
       </div>
+
+      {/* Destination regions — multi-select */}
+      <fieldset className="mb-4">
+        <legend className="text-xs font-semibold text-ph-gray-700 mb-2">Destination regions</legend>
+        <div className="flex flex-wrap gap-2">
+          {[
+            { value: 'asia', label: 'Asia' },
+            { value: 'europe', label: 'Europe' },
+            { value: 'americas', label: 'Americas' },
+            { value: 'pacific', label: 'Pacific Islands' },
+            { value: 'middle_east_africa', label: 'Middle East & Africa' },
+          ].map((opt) => {
+            const selected = profile.destination_regions.includes(opt.value);
+            return (
+              <label
+                key={opt.value}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs cursor-pointer border transition-all ${
+                  selected
+                    ? 'bg-[#3A9E98] text-white border-[#3A9E98]'
+                    : 'bg-white text-ph-gray-700 border-ph-gray-300 hover:border-ph-teal'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={selected}
+                  onChange={() => {
+                    const next = selected
+                      ? profile.destination_regions.filter((r) => r !== opt.value)
+                      : [...profile.destination_regions, opt.value];
+                    onUpdate('destination_regions', next);
+                  }}
+                  className="sr-only"
+                />
+                {opt.label}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
+      {/* Travel frequency */}
+      <RadioGroup
+        label="Travel frequency"
+        name="travel_frequency"
+        value={profile.travel_frequency}
+        options={[
+          { value: 'once_year', label: 'Once a year' },
+          { value: '2_3_year', label: '2–3 times' },
+          { value: 'monthly_plus', label: 'Monthly+' },
+        ]}
+        onChange={(v) => onUpdate('travel_frequency', v as UserProfileType['travel_frequency'])}
+      />
+
+      {/* Points balance */}
+      <RadioGroup
+        label="Current points balance"
+        name="points_balance"
+        value={profile.points_balance}
+        options={[
+          { value: 'starting', label: 'Just starting' },
+          { value: 'under_50k', label: 'Under 50k' },
+          { value: '50_100k', label: '50–100k' },
+          { value: 'over_100k', label: '100k+' },
+        ]}
+        onChange={(v) => onUpdate('points_balance', v as UserProfileType['points_balance'])}
+      />
 
       <p className="text-[10px] text-ph-gray-400 mt-2">
         Saved locally on your device. Not shared externally.

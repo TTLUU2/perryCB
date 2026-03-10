@@ -5,6 +5,7 @@ import { useChat } from '../hooks/useChat';
 import { usePageContext } from '../hooks/usePageContext';
 import { useUserProfile } from '../hooks/useUserProfile';
 import { useSavedItems } from '../hooks/useSavedItems';
+import { useLearningProgress } from '../hooks/useLearningProgress';
 import { trackCtaClick } from '../services/api';
 import { Suggestion } from '../types';
 
@@ -12,7 +13,8 @@ export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const pageContext = usePageContext();
   const { profile, updateField, hasAnyPreference } = useUserProfile();
-  const { items: savedItems, saveMessage, removeItem, isSaved, count: savedCount } = useSavedItems();
+  const { items: savedItems, saveMessage, removeItem, updateNotes, isSaved, count: savedCount } = useSavedItems();
+  const learning = useLearningProgress();
   const { messages, isStreaming, suggestions, sessionId, send } = useChat(
     pageContext,
     hasAnyPreference ? profile : null,
@@ -48,8 +50,8 @@ export function ChatWidget() {
           onClick={() => setIsOpen(true)}
           className="pg-fab-pulse group flex items-center gap-3 rounded-full
                      pl-3 pr-6 py-2.5
-                     bg-gradient-to-r from-ph-blue to-[#2563eb]
-                     text-white hover:from-ph-blue-dark hover:to-ph-blue
+                     bg-gradient-to-r from-[#374B6A] to-[#A83D80]
+                     text-white hover:from-[#2D3E54] hover:to-[#8B2D60]
                      transition-all duration-200 cursor-pointer"
           aria-label="Chat with Perry"
         >
@@ -76,8 +78,10 @@ export function ChatWidget() {
         savedItems={savedItems}
         onBookmark={saveMessage}
         onRemoveSaved={removeItem}
+        onUpdateNotes={updateNotes}
         isSaved={isSaved}
         savedCount={savedCount}
+        learning={learning}
       />
     </div>
   );

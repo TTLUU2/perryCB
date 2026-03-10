@@ -9,6 +9,9 @@ const DEFAULT_PROFILE: UserProfile = {
   travel_goal: '',
   max_annual_fee: '',
   home_city: 'Sydney',
+  destination_regions: [],
+  travel_frequency: '',
+  points_balance: '',
 };
 
 function loadProfile(): UserProfile {
@@ -39,7 +42,10 @@ export function useUserProfile() {
     profile.preferred_program !== '' ||
     profile.travel_goal !== '' ||
     profile.max_annual_fee !== '' ||
-    (profile.home_city !== '' && profile.home_city !== 'Sydney');
+    (profile.home_city !== '' && profile.home_city !== 'Sydney') ||
+    profile.destination_regions.length > 0 ||
+    profile.travel_frequency !== '' ||
+    profile.points_balance !== '';
 
   return { profile, updateField, hasAnyPreference };
 }

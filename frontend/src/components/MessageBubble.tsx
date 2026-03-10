@@ -4,31 +4,13 @@ import { PerryIcon } from './PerryIcon';
 import { CardRecommendation } from './cta/CardRecommendation';
 import { SeatAlertLink } from './cta/SeatAlertLink';
 import { EmailCapture } from './cta/EmailCapture';
+import { renderMarkdown } from '../utils/markdown';
 
 interface MessageBubbleProps {
   message: ChatMessage;
   onCtaClick: (ctaId: string) => void;
   onBookmark?: (message: ChatMessage) => void;
   isBookmarked?: boolean;
-}
-
-function renderMarkdown(text: string): string {
-  // Simple markdown rendering: bold, links, line breaks
-  let html = text
-    // Escape HTML
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    // Bold
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-    // Line breaks (double newline → paragraph break)
-    .replace(/\n\n/g, '</p><p>')
-    // Single newlines
-    .replace(/\n/g, '<br/>');
-
-  return `<p>${html}</p>`;
 }
 
 function CtaRenderer({ cta, onCtaClick }: { cta: CtaEvent; onCtaClick: (id: string) => void }) {

@@ -119,6 +119,22 @@ def build_system_prompt(session: SessionState) -> str:
             profile_parts.append(f"Max annual fee: {fee_labels.get(user_profile['max_annual_fee'], user_profile['max_annual_fee'])}")
         if user_profile.get("home_city"):
             profile_parts.append(f"Home city: {user_profile['home_city']}")
+        if user_profile.get("destination_regions") and len(user_profile["destination_regions"]) > 0:
+            region_labels = {
+                "asia": "Asia",
+                "europe": "Europe",
+                "americas": "Americas",
+                "pacific": "Pacific Islands",
+                "middle_east_africa": "Middle East & Africa",
+            }
+            regions = [region_labels.get(r, r) for r in user_profile["destination_regions"]]
+            profile_parts.append(f"Interested regions: {', '.join(regions)}")
+        if user_profile.get("travel_frequency") and user_profile["travel_frequency"] != "":
+            freq_labels = {"once_year": "Once a year", "2_3_year": "2-3 times a year", "monthly_plus": "Monthly or more"}
+            profile_parts.append(f"Travel frequency: {freq_labels.get(user_profile['travel_frequency'], user_profile['travel_frequency'])}")
+        if user_profile.get("points_balance") and user_profile["points_balance"] != "":
+            balance_labels = {"starting": "Just starting (0 points)", "under_50k": "Under 50,000", "50_100k": "50,000-100,000", "over_100k": "Over 100,000"}
+            profile_parts.append(f"Current points balance: {balance_labels.get(user_profile['points_balance'], user_profile['points_balance'])}")
 
         if profile_parts:
             prompt += "\n\n<user_profile>\n" + "\n".join(profile_parts) + "\n</user_profile>"

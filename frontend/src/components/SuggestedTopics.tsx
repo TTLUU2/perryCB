@@ -14,7 +14,7 @@ export function SuggestedTopics({ suggestions, onSelect, disabled }: SuggestedTo
       {suggestions.map((s, i) => (
         <button
           key={`${s.action}-${i}`}
-          className={`pg-suggestion-chip ${s.type === 'nba' ? 'pg-suggestion-nba' : ''}`}
+          className={`pg-suggestion-chip${s.type === 'nba' ? ' pg-suggestion-nba' : ''}${s.type === 'lesson' ? ' pg-suggestion-lesson' : ''}`}
           onClick={() => onSelect(s)}
           disabled={disabled}
         >
@@ -23,6 +23,12 @@ export function SuggestedTopics({ suggestions, onSelect, disabled }: SuggestedTo
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          )}
+          {s.type === 'lesson' && (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
             </svg>
           )}
           {s.label}

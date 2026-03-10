@@ -64,7 +64,7 @@ export function InputBar({ onSend, disabled }: InputBarProps) {
         disabled={disabled || !text.trim()}
         className="flex-shrink-0 w-9 h-9 rounded-full text-white
                    flex items-center justify-center transition-all
-                   bg-gradient-to-br from-ph-blue to-[#2563eb]
+                   bg-gradient-to-br from-ph-blue to-[#4F6786]
                    hover:from-ph-blue-dark hover:to-ph-blue hover:shadow-md
                    disabled:from-ph-gray-300 disabled:to-ph-gray-300 disabled:cursor-not-allowed"
         aria-label="Send message"

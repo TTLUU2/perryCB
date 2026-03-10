@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { SavedItem } from '../types';
 
 interface SavedItemsProps {
   items: SavedItem[];
   onRemove: (messageId: string) => void;
+  onUpdateNotes: (messageId: string, notes: string) => void;
   onBack: () => void;
 }
 
@@ -16,7 +18,9 @@ function formatDate(iso: string): string {
   return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 }
 
-export function SavedItems({ items, onRemove, onBack }: SavedItemsProps) {
+export function SavedItems({ items, onRemove, onUpdateNotes, onBack }: SavedItemsProps) {
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [draft, setDraft] = useState('');
   return (
     <div className="pg-saved-panel">
       <button
@@ -58,14 +62,62 @@ export function SavedItems({ items, onRemove, onBack }: SavedItemsProps) {
             </div>
           )}
 
+          {/* Notes */}
+          {editingId === item.id ? (
+            <div className="pg-saved-notes-editor">
+              <textarea
+                className="pg-saved-notes-input"
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                placeholder="Add a note..."
+                rows={2}
+                autoFocus
+              />
+              <div className="flex gap-2 mt-1.5">
+                <button
+                  className="pg-saved-notes-save"
+                  onClick={() => { onUpdateNotes(item.id, draft); setEditingId(null); }}
+                >
+                  Save
+                </button>
+                <button
+                  className="pg-saved-notes-cancel"
+                  onClick={() => setEditingId(null)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : item.notes ? (
+            <div
+              className="pg-saved-notes-display"
+              onClick={() => { setEditingId(item.id); setDraft(item.notes || ''); }}
+            >
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
+              <span>{item.notes}</span>
+            </div>
+          ) : null}
+
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-ph-gray-400">{formatDate(item.savedAt)}</span>
-            <button
-              onClick={() => onRemove(item.id)}
-              className="text-[10px] text-red-400 hover:text-red-600 transition-colors"
-            >
-              Remove
-            </button>
+            <div className="flex items-center gap-3">
+              {editingId !== item.id && (
+                <button
+                  onClick={() => { setEditingId(item.id); setDraft(item.notes || ''); }}
+                  className="text-[10px] text-ph-blue hover:underline transition-colors"
+                >
+                  {item.notes ? 'Edit note' : 'Add note'}
+                </button>
+              )}
+              <button
+                onClick={() => onRemove(item.id)}
+                className="text-[10px] text-red-400 hover:text-red-600 transition-colors"
+              >
+                Remove
+              </button>
+            </div>
           </div>
         </div>
       ))}

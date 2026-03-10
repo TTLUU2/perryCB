@@ -42,10 +42,20 @@ export function useSavedItems() {
     });
   }, []);
 
+  const updateNotes = useCallback((messageId: string, notes: string) => {
+    setItems((prev) => {
+      const updated = prev.map((item) =>
+        item.id === messageId ? { ...item, notes } : item
+      );
+      persistItems(updated);
+      return updated;
+    });
+  }, []);
+
   const isSaved = useCallback(
     (messageId: string) => items.some((item) => item.id === messageId),
     [items],
   );
 
-  return { items, saveMessage, removeItem, isSaved, count: items.length };
+  return { items, saveMessage, removeItem, updateNotes, isSaved, count: items.length };
 }
