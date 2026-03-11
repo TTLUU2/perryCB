@@ -26,7 +26,7 @@ def get_step_instructions(step: FlowStep, session: SessionState) -> str:
         return (
             f"Provide a concise, expert-level answer (3-5 sentences).{context} "
             "Use knowledge_search to find verified information. "
-            "Link to the relevant in-depth guide if available."
+            "Do NOT include any URLs — links will be provided separately via CTAs."
         )
 
     if step == FlowStep.AF_PROBE:

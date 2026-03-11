@@ -41,7 +41,7 @@ def get_step_instructions(step: FlowStep, session: SessionState) -> str:
             f"Provide tailored beginner content about {program}. "
             "Use the knowledge_search tool to find relevant information. "
             "Give 2-3 sentence explanations. Keep it simple and jargon-free. "
-            "Link to 1-2 relevant guides if available."
+            "Do NOT include any URLs — links will be provided separately via CTAs."
         )
 
     if step == FlowStep.LN_EMAIL_CTA:
