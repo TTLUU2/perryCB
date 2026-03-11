@@ -16,7 +16,7 @@ export function useChat(pageContext: PageContext, userProfile?: UserProfile | nu
   const genId = () => `msg-${++messageIdRef.current}-${Date.now()}`;
 
   const send = useCallback(
-    async (text: string) => {
+    async (text: string, suggestionClicked?: string) => {
       if (!text.trim() || isStreaming) return;
 
       // Add user message
@@ -92,7 +92,7 @@ export function useChat(pageContext: PageContext, userProfile?: UserProfile | nu
           setIsStreaming(false);
           console.error('Chat error:', error);
         },
-      }, userProfile);
+      }, userProfile, suggestionClicked);
     },
     [sessionId, pageContext, isStreaming, userProfile],
   );

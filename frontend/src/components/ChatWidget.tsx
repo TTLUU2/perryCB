@@ -69,7 +69,7 @@ export function ChatWidget() {
           trackCtaClick(sessionId, suggestion.action);
         }
       } else {
-        send(suggestion.label);
+        send(suggestion.label, suggestion.label);
       }
     },
     [send, sessionId],

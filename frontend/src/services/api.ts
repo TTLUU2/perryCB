@@ -15,6 +15,7 @@ export async function sendMessage(
   pageContext: PageContext,
   callbacks: SendMessageCallbacks,
   userProfile?: UserProfile | null,
+  suggestionClicked?: string | null,
 ): Promise<void> {
   try {
     const body: Record<string, unknown> = {
@@ -24,6 +25,9 @@ export async function sendMessage(
     };
     if (userProfile) {
       body.user_profile = userProfile;
+    }
+    if (suggestionClicked) {
+      body.suggestion_clicked = suggestionClicked;
     }
     const response = await fetch(`${API_BASE}/chat`, {
       method: 'POST',

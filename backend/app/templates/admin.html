@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Points Genie — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ph-blue: #0066CC;
+    --ph-navy: #1A2B4A;
+    --ph-red: #D93025;
+    --ph-gold: #F5A623;
+    --ph-green: #34A853;
+    --ph-bg: #F4F6F9;
+    --ph-card: #FFFFFF;
+    --ph-border: #E2E6ED;
+    --ph-text: #333333;
+    --ph-muted: #6B7280;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--ph-bg); color: var(--ph-text); line-height: 1.5; }
+
+  /* Header */
+  .header { background: var(--ph-navy); color: #fff; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; }
+  .header h1 span { color: var(--ph-gold); }
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .refresh-btn { background: var(--ph-blue); color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+  .refresh-btn:hover { opacity: 0.9; }
+  .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .refresh-btn.loading .spinner { display: inline-block; }
+  .spinner { display: none; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .last-updated { font-size: 0.75rem; color: rgba(255,255,255,0.6); }
+
+  /* Health banner */
+  .health-banner { padding: 12px 24px; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .health-banner.healthy { background: #E6F4EA; color: #137333; }
+  .health-banner.stale { background: #FDE7E7; color: var(--ph-red); }
+  .health-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .healthy .health-dot { background: var(--ph-green); }
+  .stale .health-dot { background: var(--ph-red); }
+
+  /* Layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+
+  /* Card */
+  .card { background: var(--ph-card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--ph-border); overflow: hidden; }
+  .card-header { padding: 16px 20px; border-bottom: 1px solid var(--ph-border); font-weight: 700; font-size: 0.95rem; color: var(--ph-navy); }
+
+  /* KPI grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .kpi { background: var(--ph-card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--ph-border); padding: 24px; text-align: center; }
+  .kpi-value { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--ph-blue); line-height: 1.1; }
+  .kpi-label { font-size: 0.8rem; color: var(--ph-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+
+  /* Two-column layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Bar chart */
+  .bar-chart { padding: 20px; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-label { width: 140px; flex-shrink: 0; font-size: 0.82rem; font-weight: 500; color: var(--ph-navy); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 28px; background: #EEF1F6; border-radius: 6px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 6px; transition: width 0.5s ease; min-width: 2px; display: flex; align-items: center; padding-left: 10px; }
+  .bar-fill span { font-size: 0.75rem; font-weight: 700; color: #fff; white-space: nowrap; }
+  .bar-fill.blue { background: var(--ph-blue); }
+  .bar-fill.green { background: var(--ph-green); }
+  .bar-fill.gold { background: var(--ph-gold); }
+  .bar-fill.gold span { color: var(--ph-navy); }
+  .bar-count { width: 50px; flex-shrink: 0; font-size: 0.82rem; font-weight: 600; color: var(--ph-muted); }
+
+  /* CTA table */
+  .cta-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .cta-table thead { background: #F8F9FB; }
+  .cta-table th { padding: 10px 16px; text-align: left; font-weight: 600; color: var(--ph-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--ph-border); }
+  .cta-table td { padding: 10px 16px; border-bottom: 1px solid var(--ph-border); }
+  .cta-table tr:last-child td { border-bottom: none; }
+  .cta-id { font-weight: 500; color: var(--ph-navy); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .conv-rate { font-weight: 700; color: var(--ph-blue); }
+  .conv-bar { width: 60px; height: 6px; background: #EEF1F6; border-radius: 3px; overflow: hidden; display: inline-block; vertical-align: middle; margin-left: 6px; }
+  .conv-bar-fill { height: 100%; background: var(--ph-blue); border-radius: 3px; }
+
+  /* Chips */
+  .chips { padding: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; background: #EEF1F6; color: var(--ph-navy); }
+  .chip-count { background: var(--ph-navy); color: #fff; font-size: 0.7rem; padding: 1px 7px; border-radius: 10px; }
+
+  /* Questions list */
+  .questions-list { padding: 16px 20px; max-height: 400px; overflow-y: auto; }
+  .question-item { padding: 10px 0; border-bottom: 1px solid var(--ph-border); font-size: 0.85rem; color: var(--ph-text); line-height: 1.45; }
+  .question-item:last-child { border-bottom: none; }
+  .question-num { color: var(--ph-muted); font-size: 0.75rem; font-weight: 600; margin-right: 6px; }
+
+  /* Empty state */
+  .empty { padding: 32px 20px; text-align: center; color: var(--ph-muted); font-size: 0.875rem; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .header { padding: 16px; }
+    .header h1 { font-size: 1.25rem; }
+    .container { padding: 16px; gap: 16px; }
+    .bar-label { width: 100px; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Points <span>Genie</span> — Dashboard</h1>
+  <div class="header-actions">
+    <span class="last-updated" id="lastUpdated"></span>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadAll()">
+      <span class="spinner"></span>
+      Refresh
+    </button>
+  </div>
+</div>
+
+<div id="healthBanner" class="health-banner healthy">
+  <span class="health-dot"></span>
+  <span id="healthText">Checking card data freshness…</span>
+</div>
+
+<div class="container">
+  <!-- KPI cards -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-value" id="kpiSessions">—</div>
+      <div class="kpi-label">Total Sessions</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value" id="kpiTurns">—</div>
+      <div class="kpi-label">Total Turns</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-value" id="kpiAvg">—</div>
+      <div class="kpi-label">Avg Turns / Session</div>
+    </div>
+  </div>
+
+  <!-- Intent distribution + Flow completions -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header">Intent Distribution</div>
+      <div class="bar-chart" id="intentChart"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Flow Completions</div>
+      <div class="bar-chart" id="flowChart"></div>
+    </div>
+  </div>
+
+  <!-- CTA Performance -->
+  <div class="card">
+    <div class="card-header">CTA Performance</div>
+    <div id="ctaSection"></div>
+  </div>
+
+  <!-- Suggestion clicks + Handovers -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header">Suggestion Clicks</div>
+      <div id="suggestionsSection"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">Handovers</div>
+      <div id="handoversSection"></div>
+    </div>
+  </div>
+
+  <!-- Recent questions -->
+  <div class="card">
+    <div class="card-header">Recent Questions <span style="font-weight:400;color:var(--ph-muted);font-size:0.8rem" id="questionCount"></span></div>
+    <div id="questionsSection"></div>
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('refreshBtn');
+  const ts = document.getElementById('lastUpdated');
+
+  async function fetchJSON(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${url} → ${res.status}`);
+    return res.json();
+  }
+
+  function renderBarChart(container, data, colorClass) {
+    if (!data || Object.keys(data).length === 0) {
+      container.innerHTML = '<div class="empty">No data yet</div>';
+      return;
+    }
+    const max = Math.max(...Object.values(data), 1);
+    container.innerHTML = Object.entries(data)
+      .sort((a, b) => b[1] - a[1])
+      .map(([label, count]) => {
+        const pct = Math.round((count / max) * 100);
+        return `<div class="bar-row">
+          <span class="bar-label" title="${label}">${label}</span>
+          <div class="bar-track">
+            <div class="bar-fill ${colorClass}" style="width:${pct}%"><span>${count}</span></div>
+          </div>
+        </div>`;
+      }).join('');
+  }
+
+  function renderCTATable(shown, clicked) {
+    const ids = new Set([...Object.keys(shown || {}), ...Object.keys(clicked || {})]);
+    if (ids.size === 0) {
+      document.getElementById('ctaSection').innerHTML = '<div class="empty">No CTAs tracked yet</div>';
+      return;
+    }
+    const rows = [...ids].map(id => {
+      const s = (shown && shown[id]) || 0;
+      const c = (clicked && clicked[id]) || 0;
+      const rate = s > 0 ? ((c / s) * 100).toFixed(1) : '0.0';
+      return { id, shown: s, clicked: c, rate: parseFloat(rate) };
+    }).sort((a, b) => b.shown - a.shown);
+
+    const maxRate = Math.max(...rows.map(r => r.rate), 1);
+
+    document.getElementById('ctaSection').innerHTML = `<table class="cta-table">
+      <thead><tr><th>CTA</th><th>Shown</th><th>Clicked</th><th>Conv. Rate</th></tr></thead>
+      <tbody>${rows.map(r => `<tr>
+        <td class="cta-id" title="${r.id}">${r.id}</td>
+        <td>${r.shown}</td>
+        <td>${r.clicked}</td>
+        <td><span class="conv-rate">${r.rate}%</span>
+          <span class="conv-bar"><span class="conv-bar-fill" style="width:${(r.rate / maxRate) * 100}%"></span></span>
+        </td>
+      </tr>`).join('')}</tbody></table>`;
+  }
+
+  function renderChips(container, data) {
+    const el = document.getElementById(container);
+    if (!data || Object.keys(data).length === 0) {
+      el.innerHTML = '<div class="empty">No handovers recorded</div>';
+      return;
+    }
+    el.innerHTML = '<div class="chips">' + Object.entries(data)
+      .sort((a, b) => b[1] - a[1])
+      .map(([label, count]) => `<span class="chip">${label} <span class="chip-count">${count}</span></span>`)
+      .join('') + '</div>';
+  }
+
+  function renderQuestions(questions) {
+    const section = document.getElementById('questionsSection');
+    const counter = document.getElementById('questionCount');
+    if (!questions || questions.length === 0) {
+      section.innerHTML = '<div class="empty">No questions recorded yet</div>';
+      counter.textContent = '';
+      return;
+    }
+    const show = questions.slice(0, 50);
+    counter.textContent = `(${questions.length} total, showing ${show.length})`;
+    section.innerHTML = '<div class="questions-list">' + show.map((q, i) =>
+      `<div class="question-item"><span class="question-num">#${i + 1}</span>${escapeHTML(q)}</div>`
+    ).join('') + '</div>';
+  }
+
+  function escapeHTML(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  async function loadAll() {
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      const [health, analytics] = await Promise.all([
+        fetchJSON('/api/health'),
+        fetchJSON('/api/admin/analytics'),
+      ]);
+
+      // Health banner
+      const banner = document.getElementById('healthBanner');
+      const htxt = document.getElementById('healthText');
+      if (health.card_data.fresh) {
+        banner.className = 'health-banner healthy';
+        htxt.textContent = `All ${health.card_data.total_cards} cards fresh — oldest updated ${health.card_data.hours_since_oldest_update}h ago`;
+      } else {
+        banner.className = 'health-banner stale';
+        htxt.textContent = `${health.card_data.stale_count} of ${health.card_data.total_cards} cards stale (>${health.card_data.threshold_hours}h) — oldest ${health.card_data.hours_since_oldest_update}h`;
+      }
+
+      // KPIs
+      const sessions = analytics.total_sessions || 0;
+      const turns = analytics.total_turns || 0;
+      const avg = sessions > 0 ? (turns / sessions).toFixed(1) : '0';
+      document.getElementById('kpiSessions').textContent = sessions.toLocaleString();
+      document.getElementById('kpiTurns').textContent = turns.toLocaleString();
+      document.getElementById('kpiAvg').textContent = avg;
+
+      // Charts
+      renderBarChart(document.getElementById('intentChart'), analytics.intents, 'blue');
+      renderBarChart(document.getElementById('flowChart'), analytics.flow_completions, 'green');
+
+      // CTA table
+      renderCTATable(analytics.ctas_shown, analytics.ctas_clicked);
+
+      // Suggestions
+      const sugEl = document.getElementById('suggestionsSection');
+      if (!analytics.suggestions_clicked || Object.keys(analytics.suggestions_clicked).length === 0) {
+        sugEl.innerHTML = '<div class="empty">No suggestion clicks yet</div>';
+      } else {
+        sugEl.innerHTML = '<div class="bar-chart" id="sugChart"></div>';
+        renderBarChart(document.getElementById('sugChart'), analytics.suggestions_clicked, 'gold');
+      }
+
+      // Handovers
+      renderChips('handoversSection', analytics.handovers);
+
+      // Questions
+      renderQuestions(analytics.recent_questions);
+
+      // Timestamp
+      ts.textContent = 'Updated ' + new Date().toLocaleTimeString();
+
+    } catch (err) {
+      console.error(err);
+      ts.textContent = 'Error loading data';
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+
+  // Initial load
+  loadAll();
+</script>
+</body>
+</html>

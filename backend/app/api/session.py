@@ -3,7 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.analytics import log_cta_click
+from app.analytics import log_cta_click, record_cta_click
 from app.session.manager import create_session, delete_session, get_session, save_session
 
 router = APIRouter()
@@ -38,4 +38,5 @@ async def track_cta_click(session_id: str, request: CtaClickRequest):
         session.analytics.ctas_clicked.append(request.cta_id)
         await save_session(session)
     log_cta_click(session_id, request.cta_id)
+    record_cta_click(request.cta_id)
     return {"status": "ok"}

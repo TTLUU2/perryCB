@@ -6,11 +6,13 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.api.chat import router as chat_router
 from app.api.session import router as session_router
+from app.analytics import get_analytics_summary
 from app.data.freshness import check_card_freshness, get_stale_card_details
 
 settings = get_settings()
@@ -82,6 +84,19 @@ async def stale_cards():
         if stale
         else "All cards are up to date.",
     }
+
+
+@app.get("/api/admin/analytics")
+async def analytics():
+    """Returns aggregated analytics counters from Redis."""
+    return get_analytics_summary()
+
+
+@app.get("/admin")
+async def admin_dashboard():
+    """Serves the visual analytics dashboard."""
+    template_path = Path(__file__).parent / "templates" / "admin.html"
+    return FileResponse(str(template_path), media_type="text/html")
 
 
 # Serve frontend static files (must be after all API routes)

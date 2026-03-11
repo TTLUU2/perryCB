@@ -8,7 +8,18 @@ from fastapi import APIRouter, Request
 from pydantic import BaseModel
 from sse_starlette.sse import EventSourceResponse
 
-from app.analytics import log_conversation_end, log_turn_event
+from app.analytics import (
+    log_conversation_end,
+    log_turn_event,
+    record_cta_shown,
+    record_first_question,
+    record_flow_completion,
+    record_handover,
+    record_intent,
+    record_session,
+    record_suggestion_click,
+    record_turn,
+)
 from app.engine import flow_engine
 from app.engine.intent import classify_intent
 from app.engine.suggestions import generate_suggestions
@@ -38,6 +49,7 @@ class ChatRequest(BaseModel):
     message: str
     page_context: dict[str, Any] | None = None
     user_profile: dict[str, Any] | None = None
+    suggestion_clicked: str | None = None
 
 
 TOOL_HANDLERS: dict[str, Any] = {
@@ -79,6 +91,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
 
     # 1. Update page context & record user turn
     session.add_turn("user", user_message)
+    record_turn()
 
     # 2. Intent classification (if not yet classified)
     turn_metadata = TurnMetadata()
@@ -105,6 +118,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
         session.intent.confidence = confidence
         session.intent.classified_at_turn = session.turn_count
         turn_metadata.intent_detected = intent.value
+        record_intent(intent.value)
 
         if intent == Intent.OTHER:
             session.off_topic_count += 1
@@ -119,6 +133,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
         session.intent.confidence = intent_result["confidence"]
         session.intent.classified_at_turn = session.turn_count
         turn_metadata.intent_detected = intent.value
+        record_intent(intent.value)
         flow_engine.initialise_flow(session, intent)
 
     elif session.intent.primary == Intent.OTHER:
@@ -129,6 +144,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
             session.off_topic_count = 0
             flow_engine.initialise_flow(session, new_intent)
             turn_metadata.intent_detected = new_intent.value
+            record_intent(new_intent.value)
         else:
             session.off_topic_count += 1
 
@@ -142,8 +158,11 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
             and new_intent != Intent.OTHER
             and flow_engine.can_handover(session)
         ):
+            old_intent_val = session.intent.primary.value if session.intent.primary else "NONE"
             flow_engine.perform_handover(session, new_intent)
             turn_metadata.intent_detected = new_intent.value
+            record_intent(new_intent.value)
+            record_handover(f"{old_intent_val}→{new_intent.value}")
 
     # 3. Slot extraction
     extracted_slots = await extract_slots(
@@ -231,6 +250,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
                     if isinstance(result, dict) and result.get("cta_id"):
                         session.analytics.ctas_shown.append(result["cta_id"])
                         turn_metadata.cta_shown = result["cta_id"]
+                        record_cta_shown(result["cta_id"])
 
             # Track card recommendations + auto-gen CTAs
             if tc.name == "card_lookup" and isinstance(result, list):
@@ -246,6 +266,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
                         cta_events.append(ac)
                         if ac.get("cta_id"):
                             session.analytics.ctas_shown.append(ac["cta_id"])
+                            record_cta_shown(ac["cta_id"])
 
             tool_results.append({
                 "type": "tool_result",
@@ -278,6 +299,7 @@ async def _process_chat(session: SessionState, user_message: str) -> Any:
     # 9. Check for flow completion
     if flow_engine.is_flow_terminal(session):
         session.analytics.flow_completed = True
+        record_flow_completion(session.intent.primary.value if session.intent.primary else "UNKNOWN")
 
     await save_session(session)
 
@@ -337,8 +359,14 @@ async def chat(request: ChatRequest):
 
     async def event_generator():
         try:
+            # Track suggestion chip click if present
+            if request.suggestion_clicked:
+                record_suggestion_click(request.suggestion_clicked)
+
             # Send greeting first if this is a new session
             if is_first_turn:
+                record_session()
+                record_first_question(request.message)
                 greeting = session.conversation[0].content
                 greeting_suggestions = generate_suggestions(session)
                 yield {
